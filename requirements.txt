@@ -8,9 +8,10 @@ django-ckeditor==6.7.1
 django-js-asset==2.2.0
 env==0.1.0
 filelock==3.16.1
+gunicorn==23.0.0
 idna==3.10
 packaging==24.2
-Pillow==10.4.0
+pillow==10.4.0
 pipenv==2024.4.0
 platformdirs==4.3.6
 pycryptodome==3.21.0
@@ -22,4 +23,5 @@ tqdm==4.67.0
 tzdata==2024.2
 urllib3==2.2.3
 virtualenv==20.26.6
-gunicorn
+virtualenvwrapper-win==1.2.7
+waitress==3.0.2
