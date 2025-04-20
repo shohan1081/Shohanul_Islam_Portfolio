@@ -1,0 +1,103 @@
+{% load static %}
+<!-- Contact Section -->
+<div class="bg-gray-950 py-16">
+  <div class="container mx-auto px-4">
+    <!-- Heading Section -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl sm:text-5xl font-bold text-amber-50 mb-4" id="contact">
+        Contact
+      </h1>
+      <p class="text-amber-50 text-lg">
+        Have any questions? Let's connect!
+      </p>
+    </div>
+    {% if success_message %}
+    <div class="text-center py-4 mb-6 text-white bg-green-600 text-lg font-semibold rounded-xl">
+      {{ success_message }}
+    </div>
+  {% endif %}
+    <!-- Form Section -->
+    <form method="post" class="max-w-2xl mx-auto bg-gray-900 p-8 rounded-2xl shadow-2xl" action="{% url 'contact' %}>
+      {% csrf_token %}
+
+      <!-- Name Input -->
+      <div class="mb-6">
+        <label for="id_name" class="block text-amber-50 text-sm font-medium mb-2">Name</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Enter your name"
+          class="w-full bg-gray-800 text-amber-50 p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all"
+        />
+        {{ form.name }}  
+    </div>
+
+      <!-- Email Input -->
+      <div class="mb-6">
+        <label for="id_email" class="block text-amber-50 text-sm font-medium mb-2">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Enter your email"
+          class="w-full bg-gray-800 text-amber-50 p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all"
+        />
+        {{ form.email }}  
+    </div>
+
+      <!-- Message Textarea -->
+      <div class="mb-8">
+        <label for="id_message" class="block text-amber-50 text-sm font-medium mb-2">Message</label>
+        <textarea
+          name="message"
+          id="message"
+          placeholder="Write your message here..."
+          rows="6"
+          class="w-full bg-gray-800 text-amber-50 p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all"
+        ></textarea>
+        {{ form.message }} 
+    </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="w-full bg-amber-500 text-gray-900 font-semibold py-3 px-6 rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all"
+      >
+        Send Message
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="w-full bg-black">
+  <div class="container mx-auto p-5 flex flex-col items-center">
+    <!-- Social Media Icons -->
+    <div class="flex space-x-6 mb-4">
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/shohanul" target="_blank" class="text-white hover:text-gray-400 transition-colors duration-300">
+        <i class="fab fa-linkedin text-2xl"></i>
+      </a>
+      <!-- GitHub -->
+      <a href="https://github.com/shohan1081" target="_blank" class="text-white hover:text-gray-400 transition-colors duration-300">
+        <i class="fab fa-github text-2xl"></i>
+      </a>
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/shohanul.islam.1/" target="_blank" class="text-white hover:text-gray-400 transition-colors duration-300">
+        <i class="fab fa-facebook text-2xl"></i>
+      </a>
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/shohan1415/" target="_blank" class="text-white hover:text-gray-400 transition-colors duration-300">
+        <i class="fab fa-instagram text-2xl"></i>
+      </a>
+      <!-- Email -->
+      <a href="mailto:shohanulislam19892@gmail.com" class="text-white hover:text-gray-400 transition-colors duration-300">
+        <i class="fas fa-envelope text-2xl"></i>
+      </a>
+      <!-- WhatsApp -->
+      <a href="https://wa.me/01762692196" target="_blank" class="text-white hover:text-gray-400 transition-colors duration-300">
+        <i class="fab fa-whatsapp text-2xl"></i>
+      </a>
+    </div>
+  </div>
+</div>

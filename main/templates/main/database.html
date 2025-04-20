@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Design & Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-600 p-4 text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-xl font-bold">My Portfolio</a>
+            <ul class="flex space-x-4">
+                <li><a href="/" class="hover:text-gray-200">Home</a></li>
+                <li><a href="/frontend" class="hover:text-gray-200">Frontend</a></li>
+                <li><a href="/backend" class="hover:text-gray-200">Backend</a></li>
+                <li><a href="/database" class="hover:text-gray-200">Database</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Back Button -->
+    <section class="py-4 px-6">
+        <a href="{% url 'index' %}" class="text-blue-600 hover:text-blue-800 text-lg font-semibold">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Back 
+        </a>
+    </section>
+
+    <!-- Page Banner -->
+    <section class="bg-cover bg-center h-96 relative" style="background-image: url('{% static 'main/images/database-banner.jpg' %}');">
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <h1 class="text-4xl text-white font-bold">Database Design & Management</h1>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Efficient, Secure, and Scalable Database Solutions</h2>
+            <p class="text-lg text-gray-600 mb-6">
+                I specialize in designing, managing, and optimizing databases using SQL, SQLite, and other relational databases to ensure smooth and efficient data management. From data modeling to query optimization, I ensure that your application’s data is reliable, secure, and scalable.
+            </p>
+
+            <!-- Skills Section -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white shadow-lg rounded-lg p-6">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">SQL Expertise</h3>
+                    <p class="text-gray-600">I have extensive experience in writing efficient SQL queries, designing complex schemas, and optimizing database performance to ensure fast and reliable data processing.</p>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg p-6">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Database Security</h3>
+                    <p class="text-gray-600">I ensure that data is kept safe through encryption, backup strategies, and secure access controls, making sure your sensitive information stays protected.</p>
+                </div>
+            </div>
+
+            <!-- Example Projects -->
+            <div class="mt-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Featured Database Projects</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white shadow-lg rounded-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Inventory Management System</h3>
+                        <p class="text-gray-600">A robust database system designed to manage inventory and track product data efficiently, built using SQL.</p>
+                    </div>
+                    <div class="bg-white shadow-lg rounded-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Customer Relationship Management (CRM)</h3>
+                        <p class="text-gray-600">A CRM system with a powerful backend that leverages database design to manage and analyze customer interactions and data.</p>
+                    </div>
+                    <div class="bg-white shadow-lg rounded-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Data Analytics Dashboard</h3>
+                        <p class="text-gray-600">A dynamic dashboard with real-time analytics powered by a well-structured database to store and retrieve large sets of data efficiently.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 text-white py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 Shohanul Islam. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

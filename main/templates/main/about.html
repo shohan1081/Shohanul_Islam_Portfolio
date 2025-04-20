@@ -1,0 +1,154 @@
+{% load static %}
+<div
+      class="relative flex flex-col justify-center items-center p-10"
+      id="about-me"
+    >
+      <p class="text-gray-600 text-lg font-medium tracking-wide">Get To Know More</p>
+      <h1 class="sm:text-5xl text-3xl font-bold text-black mt-2">About Me</h1>
+    </div>
+    
+    <div
+      class="sm:container sm:mx-auto flex max-sm:flex-col sm:justify-center sm:items-center gap-20"
+    >
+      <!-- Profile Image with Modern Gradient Border -->
+      <div
+        class="rounded-full bg-gradient-to-b from-[#0b3f57] via-[#0d435d] via-[#16506e] via-[#236a8b] to-[#5396b3] p-1.5 animate-gradient-xy"
+      >
+        <div class="rounded-full overflow-hidden">
+          <img
+            src="{% static 'main/images/aboutpic.png' %}"
+            alt="Profile Image"
+             class="sm:h-[700px] sm:w-[500px] max-sm:h-fit w-fit transform hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+      </div>
+    
+      <!-- Content Section with Modern Card Design -->
+      <div class="sm:flex justify-center items-center sm:mb-3 flex-col">
+        <div
+          class="sm:w-full sm:max-w-2xl w-20 border-[#d3a1e7] bg-[#e3f2fd] sm:p-8 rounded-3xl shadow-xl border-none border-gray-400 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center transform hover:-translate-y-2 transition-transform duration-300"
+        >
+          <p class="max-sm:text-base text-[#2c3e50] leading-relaxed font-sans-serif">
+            Ambitious IT graduate with a strong problem-solving foundation, eager to
+            deliver high-quality solutions. Quick to learn and adapt, I thrive in
+            collaborative environments and embrace new technologies. Ready to
+            leverage my skills and academic knowledge to make a meaningful impact in
+            a dynamic role.
+          </p>
+    
+          <!-- Tabs with Modern Hover Effects -->
+          <div class="flex justify-around border-b-2 mt-6">
+            <button
+              class="tab-btn text-lg font-semibold py-3 px-5 border-b-4 border-transparent hover:border-[#bbdefb] hover:text-blue-500 focus:border-blue-500 transition-all duration-300"
+              onclick="showTab('skill')"
+              id="skill-tab"
+            >
+              Skill
+            </button>
+            <button
+              class="tab-btn text-lg font-semibold py-3 px-5 border-b-4 border-transparent hover:border-blue-500 hover:text-blue-500 focus:border-blue-500 transition-all duration-300"
+              onclick="showTab('experience')"
+              id="experience-tab"
+            >
+              Experience
+            </button>
+            <button
+              class="tab-btn text-lg font-semibold py-3 px-5 border-b-4 border-transparent hover:border-blue-500 hover:text-blue-500 focus:border-blue-500 transition-all duration-300"
+              onclick="showTab('education')"
+              id="education-tab"
+            >
+              Education
+            </button>
+          </div>
+    
+          <!-- Content Sections with Smooth Transitions -->
+          <div class="mt-6 min-h-[350px] overflow-y-auto">
+            <div id="skill" class="tab-content">
+              <h2 class="text-2xl font-bold text-gray-800 mb-4">Skills</h2>
+              <pre class="text-gray-700 mt-2 font-[Poppins]">
+    ✅ Frontend Development: HTML5, CSS3, Tailwind CSS (responsive UI),
+        JavaScript (interactivity), UI/UX principles.
+    
+    ✅ Backend Development: Python (backend logic), Data Structures & Algorithms (optimized performance), SQL,
+        MySQL (database management), RESTful APIs (backend architecture), Git & GitHub (version control).
+    
+    ✅ Problem-Solving: Algorithmic challenges, logical reasoning, and efficient coding for tackling complex problems.
+              </pre>
+            </div>
+    
+            <div id="experience" class="tab-content hidden">
+              <h2 class="text-2xl font-bold text-gray-800 mb-4">Experience</h2>
+              <pre class="text-gray-600 mt-2 font-[Poppins]">
+    ✅ Competitive Programming & Problem-Solving: Solved 200+ problems on Beecrowd and 50+ problems on Codeforces,
+        enhancing algorithmic and logical thinking skills.
+    
+    ✅ Django Full-Stack Development: Completed a full course from Ostad on Django full-stack development, 
+        gaining expertise in backend and frontend technologies.
+    
+    ✅ Leadership & Club Activities: 
+    🔹 Treasurer - UITS IT Club 
+    🔹 Executive – Software Development and Project Management Wing , UITS IT Club 
+    🔹 Executive – BASIS Students’ Forum UITS Chapter
+              </pre>
+            </div>
+    
+            <div id="education" class="tab-content hidden">
+              <h2 class="text-2xl font-bold text-gray-800 mb-4">Education</h2>
+              <pre class="text-gray-600 mt-2 font-[Poppins]">
+    🎓 BSc in Information Technology
+    🏛️ University of Information and Technology | 2025
+    📊 CGPA: 3.69 / 4.00
+    
+    🎓 Higher Secondary Certificate (HSC)
+    📜 Shahid Smriti Degree College, Barisal Board | 2019
+    📊 GPA: 3.83 / 5.00
+    
+    🎓 Secondary School Certificate (SSC)
+    🏫 Nanduher Iluher United Institution, Barisal Board | 2017
+    📊 GPA: 4.73 / 5.00
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Add this CSS for animations -->
+    <style>
+      @keyframes gradient-xy {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    
+      .animate-gradient-xy {
+        background-size: 200% 200%;
+        animation: gradient-xy 5s ease infinite;
+      }
+    </style>
+    <script>
+        function showTab(tabId) {
+          const tabs = document.querySelectorAll('.tab-content');
+          const buttons = document.querySelectorAll('.tab-btn');
+      
+          tabs.forEach(tab => {
+            tab.classList.add('hidden');
+          });
+      
+          buttons.forEach(btn => {
+            btn.classList.remove('text-blue-500', 'border-blue-500');
+          });
+      
+          document.getElementById(tabId).classList.remove('hidden');
+          document.getElementById(`${tabId}-tab`).classList.add('text-blue-500', 'border-blue-500');
+        }
+      
+        // Set default tab on load
+        window.onload = () => showTab('skill');
+      </script>

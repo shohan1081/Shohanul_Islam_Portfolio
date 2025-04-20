@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shohanul Islam – Portfolio</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome Icons CDN (for social media icons) -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Link to Static CSS (add this line in case you have a custom CSS file) -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body class="">
+  <div class="min-h-screen bg-[#999D9E] overflow-hidden relative pt-32">
+
+    {% block content %}
+    {% endblock %}
+
+     <!-- Horizontal Line -->
+     <hr class="w-full border-t border-yellow-700 mb-4" />
+
+     <!-- Footer Text -->
+     <p class="text-black text-bold  text-center bg-orange-600 py-4">
+        &copy; 2025 Shohanul Islam. All rights reserved.
+       
+     </p>
+ </div>
+
+</body>
+</html>

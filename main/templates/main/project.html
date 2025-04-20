@@ -1,0 +1,148 @@
+{% load static %}
+ <!-- Work & Projects Section -->
+ <div class="bg-gradient-to-t from-gray-900 py-16">
+    <div class="container mx-auto px-4">
+      <!-- Heading Section -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl sm:text-5xl font-bold text-black mb-4 "id="work">
+          Work & Projects
+        </h1>
+        <p class="text-gray-600 text-lg">Explore my creative projects</p>
+      </div>
+
+      <!-- Project Collage Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+        <!-- Project 1 -->
+        <div
+          class="relative group overflow-hidden rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-105"
+        >
+          <div class="grid grid-cols-2 gap-2">
+            <!-- Big Image -->
+            <div class="col-span-2">
+              <img
+                src="{% static 'main/images/project1.png' %}"
+                alt="Project 1 Main"
+                class="w-full h-64 object-cover"
+              />
+            </div>
+            <!-- Small Images -->
+            <div>
+              <img
+                src="{% static 'main/images/project1_2.png' %}"
+                alt="Project 1 Image 1"
+                class="w-full h-32 object-cover"
+              />
+            </div>
+            <div>
+              <img
+                src="{% static 'main/images/project1_3.png' %}"
+                alt="Project 1 Image 2"
+                class="w-full h-32 object-cover"
+              />
+            </div>
+          </div>
+          <!-- Overlay -->
+          <div
+            class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >
+            <h3 class="text-amber-50 text-xl font-bold mb-2">
+              Daily-Weather-Application
+            </h3>
+            <a
+              href="https://shohan1081.github.io/Daily-Weather-Application/"
+              class="text-amber-50 bg-black px-4 py-2 rounded-lg hover:bg-amber-500 hover:text-black transition-all"
+              >View Project</a
+            >
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div
+          class="relative group overflow-hidden rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-105"
+        >
+          <div class="grid grid-cols-2 gap-2">
+            <!-- Big Image -->
+            <div class="col-span-2">
+              <img
+                src="{% static 'main/images/p2.png' %}"
+                alt="Project 2 Main"
+                class="w-full h-64 object-cover"
+              />
+            </div>
+            <!-- Small Images -->
+            <div>
+              <img
+                src="{% static 'main/images/p2_2.png' %}"
+                alt="Project 2 Image 1"
+                class="w-full h-32 object-cover"
+              />
+            </div>
+            <div>
+              <img
+                src="{% static 'main/images/p2_3.png' %}"
+                alt="Project 2 Image 2"
+                class="w-full h-32 object-cover"
+              />
+            </div>
+          </div>
+          <!-- Overlay -->
+          <div
+            class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >
+            <h3 class="text-amber-50 text-xl font-bold mb-2">
+              Project Title 2
+            </h3>
+            <a
+              href="#"
+              class="text-amber-50 bg-black px-4 py-2 rounded-lg hover:bg-amber-500 hover:text-black transition-all"
+              >View Project</a
+            >
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div
+          class="relative group overflow-hidden rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-105"
+        >
+          <div class="grid grid-cols-2 gap-2">
+            <!-- Big Image -->
+            <div class="col-span-2">
+              <img
+                src="{% static 'main/images/p3.png' %}"
+                alt="Project 3 Main"
+                class="w-full h-64 object-cover"
+              />
+            </div>
+            <!-- Small Images -->
+            <div>
+              <img
+                src="{% static 'main/images/p3_2.png' %}"
+                alt="Project 3 Image 1"
+                class="w-full h-32 object-cover"
+              />
+            </div>
+            <div>
+              <img
+                src="{% static 'main/images/p3_3.png' %}"
+                alt="Project 3 Image 2"
+                class="w-full h-32 object-cover"
+              />
+            </div>
+          </div>
+          <!-- Overlay -->
+          <div
+            class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >
+            <h3 class="text-amber-50 text-xl font-bold mb-2">
+              E-Wallet Application (Python GUI)
+            </h3>
+            <a
+              href="#"
+              class="text-amber-50 bg-black px-4 py-2 rounded-lg hover:bg-amber-500 hover:text-black transition-all"
+              >View Project</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

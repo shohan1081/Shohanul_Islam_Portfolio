@@ -1,0 +1,111 @@
+{% load static %}
+<div
+  class="relative flex flex-col justify-center items-center p-10 my-10 mx-5 mt-16"
+>
+  <p class="text-gray-600 text-lg font-medium tracking-wide" id="services">What do I offer?</p>
+  <h1 class="sm:text-5xl text-2xl font-bold text-black">Services</h1>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-10">
+  <div
+  class="min-h-[20rem] w-full shadow-xl rounded-2xl p-5 flex flex-col justify-end gap-4 bg-no-repeat bg-cover bg-center text-white relative overflow-hidden transform transition-all duration-500 hover:scale-105"
+  style="background-image: url('{% static 'main/images/frontend.avif' %}');"
+>
+
+  <div class="absolute inset-0 bg-black bg-opacity-50 rounded-2xl"></div>
+
+  <div class="relative z-10 p-4">
+    <h1 class="font-bold text-xl mb-2">Frontend Developer</h1>
+    <p class="text-sm mb-4">
+      Designing responsive, interactive, and visually appealing user interfaces using HTML, CSS, Tailwind CSS, and JavaScript
+    </p>
+    <a
+      class="text-black bg-white font-semibold px-4 py-2 rounded-full hover:bg-amber-500 hover:text-black transition-all"
+      href="{% url 'frontend' %}"
+      >Read More</a
+    >
+  </div>
+</div>
+
+<div
+  class="min-h-[20rem] w-full shadow-xl rounded-2xl p-5 flex flex-col justify-end gap-4 bg-no-repeat bg-cover bg-center text-white relative overflow-hidden transform transition-all duration-500 hover:scale-105"
+  style="background-image: url('{% static 'main/images/backend.jpg' %}');"
+>
+
+  <div class="absolute inset-0 bg-black bg-opacity-50 rounded-2xl"></div>
+
+  <div class="relative z-10 p-4">
+    <h1 class="font-bold text-xl mb-2">Backend Developer</h1>
+    <p class="text-sm mb-4">
+      Building robust server-side logic and secure APIs using Django and Python to power seamless web experiences
+    </p>
+    <a
+      class="text-black bg-white font-semibold px-4 py-2 rounded-full hover:bg-amber-500 hover:text-black transition-all"
+      href="{% url 'backend' %}"
+      >Read More</a
+    >
+  </div>
+</div>
+
+<div
+  class="min-h-[20rem] w-full shadow-xl rounded-2xl p-5 flex flex-col justify-end gap-4 bg-no-repeat bg-cover bg-center text-white relative overflow-hidden transform transition-all duration-500 hover:scale-105"
+  style="background-image: url('{% static 'main/images/database.avif' %}');"
+>
+
+  <div class="absolute inset-0 bg-black bg-opacity-50 rounded-2xl"></div>
+
+  <div class="relative z-10 p-4">
+    <h1 class="font-bold text-xl mb-2">Database Design & Management</h1>
+    <p class="text-sm mb-4">
+      Structuring and managing efficient, secure databases with SQL and SQLite to ensure reliable data flow and storage.
+    </p>
+    <a
+      class="text-black bg-white font-semibold px-4 py-2 rounded-full hover:bg-amber-500 hover:text-black transition-all"
+      href="{% url 'database' %}"
+      >Read More</a
+    >
+  </div>
+</div>
+
+<div
+  class="min-h-[20rem] w-full shadow-xl rounded-2xl p-5 flex flex-col justify-end gap-4 bg-no-repeat bg-cover bg-center text-white relative overflow-hidden transform transition-all duration-500 hover:scale-105"
+  style="background-image: url('{% static 'main/images/gui.jpg' %}');"
+>
+
+  <div class="absolute inset-0 bg-black bg-opacity-50 rounded-2xl"></div>
+
+  <div class="relative z-10 p-4">
+    <h1 class="font-bold text-xl mb-2">Desktop Application Development</h1>
+    <p class="text-sm mb-4">
+      Building intuitive and functional desktop applications using Python and GUI frameworks for seamless user experiences.
+    </p>
+    <a
+      class="text-black bg-white font-semibold px-4 py-2 rounded-full hover:bg-amber-500 hover:text-black transition-all"
+      href="{% url 'desktop' %}"
+      >Read More</a
+    >
+  </div>
+</div>
+
+<div
+  class="min-h-[20rem] w-full shadow-xl rounded-2xl p-5 flex flex-col justify-end gap-4 bg-no-repeat bg-cover bg-center text-white relative overflow-hidden transform transition-all duration-500 hover:scale-105"
+  style="background-image: url('{% static 'main/images/software.jpg' %}');"
+>
+
+  <div class="absolute inset-0 bg-black bg-opacity-50 rounded-2xl"></div>
+
+  <div class="relative z-10 p-4">
+    <h1 class="font-bold text-xl mb-2">Software Development</h1>
+    <p class="text-sm mb-4">
+      Creating innovative and efficient software solutions tailored to your needs. From custom 
+      applications to complex enterprise systems, I specialize 
+      in building scalable, reliable, and user-friendly software that drives business success.
+    </p>
+    <a
+      class="text-black bg-white font-semibold px-4 py-2 rounded-full hover:bg-amber-500 hover:text-black transition-all"
+      href="{% url 'software' %}"
+      >Read More</a
+    >
+  </div>
+</div>
+
+</div>

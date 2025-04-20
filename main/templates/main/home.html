@@ -1,0 +1,156 @@
+ 
+{% load static %}
+ <!-- Profile Image (Above Navbar) -->
+ <img
+ src="{% static 'main/images/my pic bg remove2.png' %}"
+ alt="Profile Image"
+ class="absolute bottom-0 right-0 lg:left-0 mx-auto object-cover h-6/7 lg:h-full z-50"id="home"
+/>
+
+   <!-- Navbar (Behind Profile Image) -->
+   <nav id="navbar" class="fixed top-0 w-full bg-[#999D9E] z-40 transition-all duration-300">
+     <div class="container  ml-auto p-5  justify-between items-center">
+       <!-- Logo -->
+       
+   
+       <!-- Desktop Menu -->
+       <ul class="hidden md:flex space-x-10 text-white font-[Dennis Sans] text-xl items-center mr-2 justify-end">
+        <li class="relative">
+            <a href="#home" class="hover:text-black after:block after:content-[''] after:absolute after:left-0 after:bottom-[-7px] after:w-0 after:h-[3px] after:bg-white after:transition-all after:duration-300 hover:after:w-full">Home</a>
+        </li>
+        <li class="relative hover:text-black after:content-[''] after:absolute after:left-0 after:bottom-[-7px] after:w-0 after:h-[3px] after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+            <a href="#about-me">About Me</a>
+        </li>
+        <li class="relative hover:text-black after:content-[''] after:absolute after:left-0 after:bottom-[-7px] after:w-0 after:h-[3px] after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+            <a href="#services">Services</a>
+        </li>
+        <li class="relative hover:text-black after:content-[''] after:absolute after:left-0 after:bottom-[-7px] after:w-0 after:h-[3px] after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+            <a href="#work">Works</a>
+        </li>
+        <li class="relative hover:text-black after:content-[''] after:absolute after:left-0 after:bottom-[-7px] after:w-0 after:h-[3px] after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+            <a href="#contact">Contact</a>
+        </li>
+        <!-- Adjusted Download CV Button -->
+        <li class="relative">
+            <a
+            href="{% static 'main/CV.pdf' %}"
+            download
+            class="bg-gradient-to-r from-[#3A6073] to-[#16222A]
+
+
+ text-white font-semibold py-3 px-6 rounded-xl shadow-lg transform transition duration-300 hover:ring-2 hover:ring-[#4e9ac3] hover:scale-105 hover:animate-pulse
+ hover:shadow-xl"
+          >
+                Download CV
+            </a>
+        </li>
+    </ul>
+    
+    
+   
+       <!-- Hamburger Icon -->
+       <div id="hamburger" class="md:hidden space-y-1 cursor-pointer z-50">
+         <div class="w-6 h-0.5 bg-white"></div>
+         <div class="w-6 h-0.5 bg-white"></div>
+         <div class="w-6 h-0.5 bg-white"></div>
+       </div>
+     </div>
+   
+     <!-- Mobile Menu -->
+     <ul id="menu" class="hidden md:hidden text-white bg-indigo-950 absolute left-0 top-0 w-full p-10 space-y-4 text-center rounded-b-3xl">
+       <li><a href="#home">Home</a></li>
+       <li><a href="#about-me">About Me</a></li>
+       <li><a href="#services">Services</a></li>
+       <li><a href="#work">Works</a></li>
+       <li><a href="#contact">Contact</a></li>
+     </ul>
+   </nav>
+
+   <!-- Background Circle -->
+   <div
+     class="hidden lg:block absolute -bottom-1/4 right-0 left-0 mx-auto w-150 h-150 bg-gradient-to-b from-slate-700 rounded-full -z-10"
+   ></div>
+
+   <!-- IT Engineer & Web Developer Text -->
+   <div
+     class="absolute top-56 left-2 text-xl sm:left-20 sm:top-83 sm:text-5xl font-bold font-[Poppins]"
+   >
+     <span class="text-gray-800">IT Engineer</span>
+     <p class="text-red-700">Web Developer</p>
+   </div>
+
+
+   <!-- Hire Me Card -->
+   <div
+ class="hidden lg:flex flex-col absolute top-1/2 right-10 transform -translate-y-1/2 bg-[#F0F4F8] bg-opacity-80 p-8 w-[28rem] gap-6 rounded-2xl shadow-2xl font-[Poppins] transition-transform duration-300 hover:scale-[1.02]"
+>
+ <h1 class="text-5xl font-extrabold bg-gradient-to-r from-[#3A6073] to-[#16222A] bg-clip-text text-transparent">Hi, I'm Shohan</h1>
+ <p class="text-gray-800 leading-relaxed">
+   Passionate IT Engineer & creative Web Developer. I build responsive,
+   user-friendly websites that blend functionality and style.
+ </p>
+ <a
+   href="#contact"
+   class="mt-4 bg-gradient-to-r from-[#3A6073] to-[#16222A]
+ text-white px-6 py-3 rounded-xl font-semibold hover:ring-2 hover:ring-[#4e9ac3] hover:scale-105 hover:animate-pulse
+ shadow-md hover:shadow-lg transition duration-200 ease-in-out w-fit"
+ >
+   Hire Me
+ </a>
+</div>
+
+
+   <!-- Moving Text: Shohanul Islam -->
+   <div class="absolute inset-0 flex place-items-end justify-center z-50 pointer-events-none">
+     <div class="whitespace-nowrap text-[10rem] font-extrabold text-transparent animate-text-fill" style="-webkit-text-stroke: 4px white;">
+       Shohanul Islam
+     </div>
+   </div>
+ </div>
+
+ <!-- JS for navbar visibility + hamburger -->
+ <script>
+   const hamburger = document.getElementById('hamburger');
+   const menu = document.getElementById('menu');
+   const navbar = document.getElementById('navbar');
+
+   hamburger.addEventListener('click', () => {
+     menu.classList.toggle('hidden');
+   });
+
+   window.addEventListener('scroll', () => {
+     if (window.scrollY === 0) {
+       navbar.classList.remove('opacity-0', 'pointer-events-none');
+     } else {
+       navbar.classList.add('opacity-0', 'pointer-events-none');
+     }
+   });
+ </script>
+
+ <!-- Text Fill Animation -->
+ <style>
+   @keyframes text-fill {
+     0% {
+       background-position: 100% 0;
+     }
+     50% {
+       background-position: 0 0;
+     }
+     100% {
+       background-position: 100% 0;
+     }
+   }
+
+   .animate-text-fill {
+     background: linear-gradient(90deg, white 50%, transparent 50%);
+     background-size: 200% 100%;
+     background-clip: text;
+     -webkit-background-clip: text;
+     color: transparent;
+     animation: text-fill 8s linear infinite;
+   }
+
+   #navbar {
+     transition: opacity 0.3s ease-in-out;
+   }
+ </style>
