@@ -2,7 +2,7 @@
 {% load static %}
  <!-- Profile Image (Above Navbar) -->
  <img
- src="{% static 'main/images/my pic bg remove2.png' %}"
+ src="{% static 'main/images/profile22.png' %}"
  alt="Profile Image"
  class="absolute bottom-0 right-0 lg:left-0 mx-auto object-cover h-6/7 lg:h-full z-50"id="home"
 />
@@ -73,11 +73,23 @@
 
    <!-- IT Engineer & Web Developer Text -->
    <div
-     class="absolute top-56 left-2 text-xl sm:left-20 sm:top-83 sm:text-5xl font-bold font-[Poppins]"
-   >
-     <span class="text-gray-800">IT Engineer</span>
-     <p class="text-red-700">Web Developer</p>
-   </div>
+  class="absolute top-56 left-4 sm:left-20 sm:top-80 
+         font-[Poppins] font-bold 
+         text-2xl sm:text-5xl 
+         leading-tight space-y-2"
+>
+  <span class="block text-gray-800 tracking-wide">
+    IT Engineer
+  </span>
+
+  <p
+    class="bg-gradient-to-r from-red-600 to-pink-500 
+           text-transparent bg-clip-text 
+           animate-pulse"
+  >
+    Web Developer
+  </p>
+</div>
 
 
    <!-- Hire Me Card -->
