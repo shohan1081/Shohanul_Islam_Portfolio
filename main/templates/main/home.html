@@ -72,25 +72,74 @@
    ></div>
 
    <!-- IT Engineer & Web Developer Text -->
-   <div
-  class="absolute top-56 left-4 sm:left-20 sm:top-80 
-         font-[Poppins] font-bold 
-         text-2xl sm:text-5xl 
-         leading-tight space-y-2"
->
-  <span class="block text-gray-800 tracking-wide">
-    IT Engineer
-  </span>
+ <div class="absolute top-32 left-6 sm:left-20 sm:top-52 z-30 flex flex-col gap-4 select-none">
+  
+  <h1 class="meta-text text-white-variant text-[3.5rem] sm:text-[5.5rem] lg:text-[7rem]">
+    IT ENGINEER
+  </h1>
+  
+  <h2 class="meta-text text-black-variant text-[2.2rem] sm:text-[3.5rem] lg:text-[4.5rem] mt-[-1rem] sm:mt-[-2rem]">
+    WEB DEVELOPER
+  </h2>
 
-  <p
-    class="bg-gradient-to-r from-red-600 to-pink-500 
-           text-transparent bg-clip-text 
-           animate-pulse"
-  >
-    Web Developer
-  </p>
 </div>
 
+<style>
+  @font-face {
+    src: url("https://www.axis-praxis.org/fonts/webfonts/MetaVariableDemo-Set.woff2") format("woff2");
+    font-family: "Meta";
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  .meta-text {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-variation-settings: "wght" 900, "ital" 1;
+    font-family: "Meta", sans-serif;
+    line-height: 1.1;
+    cursor: pointer;
+  }
+
+  /* IT ENGINEER - White Style */
+  .text-white-variant {
+    color: white;
+    -webkit-text-stroke: 1.5px #d6f4f4;
+    text-shadow: 
+      3px 3px 0px #07bccc,
+      6px 6px 0px #d6170d,
+      9px 9px 0px #86dbf2;
+  }
+
+  /* WEB DEVELOPER - Black Style */
+  .text-black-variant {
+    color: black;
+    -webkit-text-stroke: 1.5px #333; /* Darker stroke for the black text */
+    text-shadow: 
+      3px 3px 0px #444,
+      6px 6px 0px #fbfafb,
+      9px 9px 0px #000;
+  }
+
+  /* Interactive Hover State for both */
+  .meta-text:hover {
+    font-variation-settings: "wght" 400, "ital" 0;
+    text-shadow: none;
+    transform: translateY(-3px);
+  }
+
+  /* Hover specifically for the black text so it stays visible on dark backgrounds */
+  .text-black-variant:hover {
+    color: #5eb3fd; /* Changes to a nice blue on hover for contrast */
+    -webkit-text-stroke: 1.5px white;
+  }
+
+  @media (max-width: 640px) {
+    .meta-text {
+      -webkit-text-stroke: 1px !important;
+      text-shadow: 2px 2px 0px rgba(0,0,0,0.2) !important;
+    }
+  }
+</style>
 
    <!-- Hire Me Card -->
    <div
