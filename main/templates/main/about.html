@@ -1,154 +1,352 @@
 {% load static %}
-<div
-      class="relative flex flex-col justify-center items-center p-10"
-      id="about-me"
-    >
-      <p class="text-gray-600 text-lg font-medium tracking-wide">Get To Know More</p>
-      <h1 class="sm:text-5xl text-3xl font-bold text-black mt-2">About Me</h1>
+
+<!-- Import Inter and Poppins fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  .about-section {
+    position: relative;
+    padding: 2rem; /* Reduced padding */
+    background: #f4f7fb; 
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    z-index: 1;
+    height: 100vh; /* Fixed height to ensure one-page layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  /* --- GLASS EFFECT BLOBS --- */
+  .glass-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    z-index: -1;
+  }
+  .blob-blue { top: 5%; left: 5%; width: 450px; height: 450px; background: rgba(37, 99, 235, 0.35); }
+  .blob-purple { bottom: -5%; right: 5%; width: 550px; height: 550px; background: rgba(147, 51, 234, 0.25); }
+  .blob-cyan { top: 50%; left: 40%; width: 350px; height: 350px; background: rgba(6, 182, 212, 0.25); }
+
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.55); 
+    backdrop-filter: blur(25px) saturate(150%);
+    -webkit-backdrop-filter: blur(25px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 1);
+  }
+
+  /* --- LAYOUT --- */
+  .about-grid {
+    max-width: 1500px; 
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 480px 1fr; 
+    gap: 2.5rem; 
+    align-items: stretch;
+    width: 100%;
+    flex-grow: 1; /* Take remaining space */
+    max-height: calc(100vh - 160px); /* Constrain height to fit page */
+  }
+
+  @media(max-width: 1100px) {
+    .about-section { height: auto; overflow: auto; padding: 4rem 1rem; }
+    .about-grid { grid-template-columns: 1fr; max-height: none; }
+  }
+
+  /* --- LEFT: PROFILE CARD --- */
+  .profile-card {
+    border-radius: 36px;
+    padding: 24px; 
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    height: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0; /* Prevent card itself from shrinking */
+  }
+
+  .dots-bg {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-image: radial-gradient(#94a3b8 2px, transparent 2px);
+    background-size: 12px 12px;
+    z-index: 0;
+  }
+
+  .profile-image-container {
+    position: relative;
+    width: 100%;
+    height: 520px; /* Fixed height to prevent shrinking bug */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    z-index: 1;
+    flex-shrink: 0; /* CRITICAL: Prevents image from shrinking when tabs change */
+  }
+
+  .profile-circle-bg {
+    position: absolute;
+    width: 360px; 
+    height: 360px;
+    background: #e2e8f0;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: -1;
+  }
+
+  .profile-image-container img {
+    max-height: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .mini-stats-glass {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    padding: 16px; 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 2;
+    margin-top: auto; /* Push to bottom */
+  }
+
+  .mini-stat { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; }
+  .mini-icon {
+    width: 40px; height: 40px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: #2563eb; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+  }
+  .mini-stat span { font-size: 11px; font-weight: 700; color: #0f172a; line-height: 1.3; }
+
+  /* --- RIGHT: CONTENT --- */
+  .right-col { display: flex; flex-direction: column; gap: 1rem; height: 100%; overflow: hidden; }
+
+  .header-group {
+    display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 1.5rem; 
+  }
+
+  .badge-pill {
+    display: inline-flex; align-items: center; gap: 8px; background: #eff6ff; color: #2563eb; padding: 6px 18px;
+    border-radius: 999px; font-size: 11px; font-weight: 700; border: 1px solid white; box-shadow: 0 4px 10px rgba(37,99,235,0.05); margin-bottom: 8px;
+  }
+
+  .header-title { font-size: 2.8rem; font-weight: 800; color: #0f172a; margin: 0; position: relative; display: inline-block; padding-bottom: 6px; }
+  .header-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 70px; height: 5px; background: #2563eb; border-radius: 3px; }
+
+  .bio-card { border-radius: 20px; padding: 18px 24px; position: relative; overflow: hidden; flex-shrink: 0; }
+  .bio-card::before { content: ''; position: absolute; left: 0; top: 18px; bottom: 18px; width: 4px; background: #2563eb; border-radius: 0 4px 4px 0; }
+  .bio-card p { font-size: 1.1rem; color: #334155; line-height: 1.6; margin: 0; }
+
+  .tabs-nav-glass { border-radius: 999px; padding: 6px; display: flex; gap: 6px; flex-shrink: 0; }
+  .tab-btn {
+    flex: 1; background: transparent; border: none; padding: 12px 20px; border-radius: 999px; font-weight: 600; font-size: 1rem; color: #64748b; cursor: pointer; transition: all 0.3s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .tab-btn:hover { background: rgba(255,255,255,0.5); }
+  .tab-btn.active { background: white; color: #2563eb; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+  .content-glass-box { 
+    border-radius: 20px; 
+    padding: 24px; 
+    flex-grow: 1; 
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Essential for flex-grow with overflow to work */
+  }
+
+  .tab-pane { 
+    display: none; 
+    animation: fadeScale 0.4s ease forwards; 
+    height: 100%;
+  }
+  .tab-pane.active { 
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-start; 
+    gap: 15px;
+  }
+
+  @keyframes fadeScale { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+  .timeline-row { display: flex; gap: 20px; position: relative; padding-bottom: 10px; }
+  .timeline-line { position: absolute; left: 24px; top: 50px; bottom: -10px; width: 2px; background: #cbd5e1; z-index: 0; }
+  .timeline-row:last-child .timeline-line { display: none; }
+
+  .timeline-icon-box {
+    width: 48px; height: 48px; background: #eff6ff; border: 2px solid white; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    color: #2563eb; font-size: 1.3rem; z-index: 1; flex-shrink: 0; box-shadow: 0 4px 10px rgba(37,99,235,0.1);
+  }
+
+  .timeline-text h4 { margin: 0 0 4px 0; font-size: 1.3rem; font-weight: 700; color: #0f172a; }
+  .timeline-text h5 { margin: 0 0 10px 0; font-size: 1.05rem; font-weight: 600; color: #2563eb; }
+  .timeline-text p { margin: 0 0 10px 0; color: #475569; font-size: 1.1rem; line-height: 1.6; }
+  .timeline-text ul { list-style: none; padding: 0; margin: 0 0 12px 0; }
+  .timeline-text li { position: relative; padding-left: 20px; margin-bottom: 6px; color: #475569; font-size: 1rem; line-height: 1.5; }
+  .timeline-text li::before { content: '•'; position: absolute; left: 0; color: #2563eb; font-weight: bold; }
+
+  .tag-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 5px; }
+  .tag { background: #eff6ff; color: #1d4ed8; padding: 6px 16px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; border: 1px solid #dbeafe; }
+
+</style>
+
+<div class="about-section" id="about-me">
+  <div class="glass-blob blob-blue"></div>
+  <div class="glass-blob blob-purple"></div>
+  <div class="glass-blob blob-cyan"></div>
+
+  <div class="header-group">
+    <div class="badge-pill"><i class="fas fa-bahai"></i> GET TO KNOW MORE</div>
+    <h1 class="header-title">About Me</h1>
+  </div>
+
+  <div class="about-grid">
+    <div class="glass-panel profile-card">
+      <div class="dots-bg"></div>
+      <div class="profile-image-container">
+        <div class="profile-circle-bg"></div>
+        <img src="{% static 'main/images/aboutpic.png' %}" alt="Shohanul Islam">
+      </div>
+      <div class="mini-stats-glass">
+        <div class="mini-stat"><div class="mini-icon"><i class="fas fa-user-astronaut"></i></div><span>Problem Solver<br>Mindset</span></div>
+        <div class="mini-stat"><div class="mini-icon"><i class="fas fa-code"></i></div><span>Clean Code<br>Enthusiast</span></div>
+        <div class="mini-stat"><div class="mini-icon"><i class="fas fa-rocket"></i></div><span>Always<br>Learning</span></div>
+      </div>
     </div>
-    
-    <div
-      class="sm:container sm:mx-auto flex max-sm:flex-col sm:justify-center sm:items-center gap-20"
-    >
-      <!-- Profile Image with Modern Gradient Border -->
-      <div
-        class="rounded-full bg-gradient-to-b from-[#0b3f57] via-[#0d435d] via-[#16506e] via-[#236a8b] to-[#5396b3] p-1.5 animate-gradient-xy"
-      >
-        <div class="rounded-full overflow-hidden">
-          <img
-            src="{% static 'main/images/aboutpic.png' %}"
-            alt="Profile Image"
-             class="sm:h-[700px] sm:w-[500px] max-sm:h-fit w-fit transform hover:scale-105 transition-transform duration-300"
-          />
+
+    <div class="right-col">
+      <div class="glass-panel bio-card">
+        <p>
+          Ambitious Junior Backend Developer and IT graduate with a strong foundation in scalable architecture. 
+          Currently serving as a Co-Lead at Join Venture AI, I specialize in designing robust backend workflows, 
+          managing cross-functional teams, and implementing complex payment & infrastructure solutions.
+        </p>
+      </div>
+
+      <div class="glass-panel tabs-nav-glass">
+        <button class="tab-btn active" onclick="showTab(event, 'tab-exp')"><i class="fas fa-briefcase"></i> Experience</button>
+        <button class="tab-btn" onclick="showTab(event, 'tab-skills')"><i class="fas fa-project-diagram"></i> Skills</button>
+        <button class="tab-btn" onclick="showTab(event, 'tab-edu')"><i class="fas fa-graduation-cap"></i> Education</button>
+      </div>
+
+      <div class="glass-panel content-glass-box">
+        <!-- Experience -->
+        <div id="tab-exp" class="tab-pane active">
+          <div class="timeline-row">
+            <div class="timeline-line"></div>
+            <div class="timeline-icon-box"><i class="fas fa-briefcase"></i></div>
+            <div class="timeline-text">
+              <h4>Junior Backend Developer</h4>
+              <h5>Join Venture AI, Dhaka | June 2025 – Present</h5>
+              <ul>
+                <li>Team Leadership: Co-Lead for a team of 13 engineers, coordinating workflows and ensuring high-quality output.</li>
+                <li>Strategic Planning: Lead backend design phase, architecting complete project workflows and foundations.</li>
+                <li>Cross-Functional: Bridge UI/UX and Backend teams to align data structures with frontend requirements.</li>
+                <li>Infrastructure: Oversee deployment to VPS/AWS (EC2, S3), ensuring 99.9% uptime.</li>
+                <li>QA: Rigorously validate RESTful API endpoints using Postman for data integrity and speed.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-line"></div>
+            <div class="timeline-icon-box"><i class="fas fa-certificate"></i></div>
+            <div class="timeline-text">
+              <h4>Training & Certifications</h4>
+              <h5>Full Stack Web Development | Ostad</h5>
+              <p>Mastered Django, DRF, and React. Gained practical experience in RESTful APIs, authentication, and database design.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div id="tab-skills" class="tab-pane">
+          <div class="timeline-row">
+            <div class="timeline-line"></div>
+            <div class="timeline-icon-box"><i class="fas fa-server"></i></div>
+            <div class="timeline-text">
+              <h4>Backend & Database</h4>
+              <p>Python (Django, DRF), MySQL, PostgreSQL. Expertise in schema design and query optimization.</p>
+              <div class="tag-group">
+                <span class="tag">Django REST Framework</span><span class="tag">Celery & Redis</span><span class="tag">Payment Gateways</span><span class="tag">Webhooks</span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-line"></div>
+            <div class="timeline-icon-box"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="timeline-text">
+              <h4>DevOps & Infrastructure</h4>
+              <p>VPS (Scala, Hostinger), AWS (EC2, S3), Docker for containerization and server management.</p>
+              <div class="tag-group">
+                <span class="tag">AWS Cloud</span><span class="tag">Docker</span><span class="tag">Server Mgmt</span><span class="tag">Git & GitLab</span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-line"></div>
+            <div class="timeline-icon-box"><i class="fas fa-terminal"></i></div>
+            <div class="timeline-text">
+              <h4>Tools & Basic Frontend</h4>
+              <p>Postman, VS Code, Agile practices. Basic UI with HTML/CSS, Tailwind, and JS.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div id="tab-edu" class="tab-pane">
+          <div class="timeline-row">
+            <div class="timeline-line"></div>
+            <div class="timeline-icon-box"><i class="fas fa-university"></i></div>
+            <div class="timeline-text">
+              <h4>BSc in Information Technology</h4>
+              <p>University of Information Technology & Sciences (UITS) | 2021 – 2025</p>
+              <div class="tag-group"><span class="tag">Grade: 3.70</span></div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-line"></div>
+            <div class="timeline-icon-box"><i class="fas fa-school"></i></div>
+            <div class="timeline-text">
+              <h4>Higher Secondary Certificate (HSC)</h4>
+              <p>Shahid Smriti Degree College | 2017 – 2018</p>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-line"></div>
+            <div class="timeline-icon-box"><i class="fas fa-book"></i></div>
+            <div class="timeline-text">
+              <h4>Secondary School Certificate (SSC)</h4>
+              <p>Nanduher Iluher United Institution | 2015 – 2016</p>
+            </div>
+          </div>
         </div>
       </div>
-    
-      <!-- Content Section with Modern Card Design -->
-      <div class="sm:flex justify-center items-center sm:mb-3 flex-col">
-        <div
-          class="sm:w-full sm:max-w-2xl w-20 border-[#d3a1e7] bg-[#e3f2fd] sm:p-8 rounded-3xl shadow-xl border-none border-gray-400 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center transform hover:-translate-y-2 transition-transform duration-300"
-        >
-          <p class="max-sm:text-base text-[#2c3e50] leading-relaxed font-sans-serif">
-            Ambitious IT graduate with a strong problem-solving foundation, eager to
-            deliver high-quality solutions. Quick to learn and adapt, I thrive in
-            collaborative environments and embrace new technologies. Ready to
-            leverage my skills and academic knowledge to make a meaningful impact in
-            a dynamic role.
-          </p>
-    
-          <!-- Tabs with Modern Hover Effects -->
-          <div class="flex justify-around border-b-2 mt-6">
-            <button
-              class="tab-btn text-lg font-semibold py-3 px-5 border-b-4 border-transparent hover:border-[#bbdefb] hover:text-blue-500 focus:border-blue-500 transition-all duration-300"
-              onclick="showTab('skill')"
-              id="skill-tab"
-            >
-              Skill
-            </button>
-            <button
-              class="tab-btn text-lg font-semibold py-3 px-5 border-b-4 border-transparent hover:border-blue-500 hover:text-blue-500 focus:border-blue-500 transition-all duration-300"
-              onclick="showTab('experience')"
-              id="experience-tab"
-            >
-              Experience
-            </button>
-            <button
-              class="tab-btn text-lg font-semibold py-3 px-5 border-b-4 border-transparent hover:border-blue-500 hover:text-blue-500 focus:border-blue-500 transition-all duration-300"
-              onclick="showTab('education')"
-              id="education-tab"
-            >
-              Education
-            </button>
-          </div>
-    
-          <!-- Content Sections with Smooth Transitions -->
-          <div class="mt-6 min-h-[350px] overflow-y-auto">
-            <div id="skill" class="tab-content">
-              <h2 class="text-2xl font-bold text-gray-800 mb-4">Skills</h2>
-              <pre class="text-gray-700 mt-2 font-[Poppins]">
-    ✅ Frontend Development: HTML5, CSS3, Tailwind CSS (responsive UI),
-        JavaScript (interactivity), UI/UX principles.
-    
-    ✅ Backend Development: Python (backend logic), Data Structures & Algorithms (optimized performance), SQL,
-        MySQL (database management), RESTful APIs (backend architecture), Git & GitHub (version control).
-    
-    ✅ Problem-Solving: Algorithmic challenges, logical reasoning, and efficient coding for tackling complex problems.
-              </pre>
-            </div>
-    
-            <div id="experience" class="tab-content hidden">
-              <h2 class="text-2xl font-bold text-gray-800 mb-4">Experience</h2>
-              <pre class="text-gray-600 mt-2 font-[Poppins]">
-    ✅ Competitive Programming & Problem-Solving: Solved 200+ problems on Beecrowd and 50+ problems on Codeforces,
-        enhancing algorithmic and logical thinking skills.
-    
-    ✅ Django Full-Stack Development: Completed a full course from Ostad on Django full-stack development, 
-        gaining expertise in backend and frontend technologies.
-    
-    ✅ Leadership & Club Activities: 
-    🔹 Treasurer - UITS IT Club 
-    🔹 Executive – Software Development and Project Management Wing , UITS IT Club 
-    🔹 Executive – BASIS Students’ Forum UITS Chapter
-              </pre>
-            </div>
-    
-            <div id="education" class="tab-content hidden">
-              <h2 class="text-2xl font-bold text-gray-800 mb-4">Education</h2>
-              <pre class="text-gray-600 mt-2 font-[Poppins]">
-    🎓 BSc in Information Technology
-    🏛️ University of Information and Technology | 2025
-    📊 CGPA: 3.69 / 4.00
-    
-    🎓 Higher Secondary Certificate (HSC)
-    📜 Shahid Smriti Degree College, Barisal Board | 2019
-    📊 GPA: 3.83 / 5.00
-    
-    🎓 Secondary School Certificate (SSC)
-    🏫 Nanduher Iluher United Institution, Barisal Board | 2017
-    📊 GPA: 4.73 / 5.00
-              </pre>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-    
-    <!-- Add this CSS for animations -->
-    <style>
-      @keyframes gradient-xy {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
-    
-      .animate-gradient-xy {
-        background-size: 200% 200%;
-        animation: gradient-xy 5s ease infinite;
-      }
-    </style>
-    <script>
-        function showTab(tabId) {
-          const tabs = document.querySelectorAll('.tab-content');
-          const buttons = document.querySelectorAll('.tab-btn');
-      
-          tabs.forEach(tab => {
-            tab.classList.add('hidden');
-          });
-      
-          buttons.forEach(btn => {
-            btn.classList.remove('text-blue-500', 'border-blue-500');
-          });
-      
-          document.getElementById(tabId).classList.remove('hidden');
-          document.getElementById(`${tabId}-tab`).classList.add('text-blue-500', 'border-blue-500');
-        }
-      
-        // Set default tab on load
-        window.onload = () => showTab('skill');
-      </script>
+  </div>
+</div>
+
+<script>
+  function showTab(evt, tabId) {
+    const tabs = document.querySelectorAll('.tab-pane');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    const btns = document.querySelectorAll('.tab-btn');
+    btns.forEach(btn => btn.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    evt.currentTarget.classList.add('active');
+  }
+</script>
