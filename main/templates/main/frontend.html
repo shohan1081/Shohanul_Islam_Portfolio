@@ -1,55 +1,119 @@
+{% extends 'main/layout.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Frontend Developer</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-</head>
-<body class="bg-gray-100 text-gray-800">
+{% block content %}
 
-  <!-- Hero Section -->
-  <section class="bg-cover bg-center h-72 flex items-center justify-center text-white" style="background-image: url('{% static 'main/images/frontend.avif' %}');">
-    <div class="bg-black bg-opacity-60 p-8 rounded-xl text-center">
-      <h1 class="text-4xl font-bold mb-2">Frontend Developer</h1>
-      <p class="text-lg">Crafting beautiful, responsive & user-friendly web interfaces</p>
-    </div>
-  </section>
+<div class="bg-[#f7f5fc] min-h-screen">
 
-  <!-- Content Section -->
-  <section class="max-w-5xl mx-auto px-6 py-12">
-    <h2 class="text-2xl font-semibold mb-4">What I Offer</h2>
-    <p class="mb-6">
-      I specialize in creating engaging and interactive user interfaces using the latest frontend technologies like 
-      <strong>HTML5</strong>, <strong>CSS3</strong>, <strong>Tailwind CSS</strong>, and <strong>JavaScript</strong>. My focus is on delivering smooth user experiences 
-      that work seamlessly across devices.
-    </p>
-
-    <h3 class="text-xl font-semibold mb-2">Key Features:</h3>
-    <ul class="list-disc list-inside space-y-2 mb-8">
-      <li>Responsive design for mobile, tablet, and desktop</li>
-      <li>Modern UI/UX principles</li>
-      <li>Clean, maintainable code</li>
-      <li>Tailwind CSS for rapid styling and layout</li>
-      <li>JavaScript-powered interactivity</li>
-    </ul>
-
-    <h3 class="text-xl font-semibold mb-2">Tools & Technologies:</h3>
-    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-center">
-      <span class="bg-white p-3 rounded shadow">HTML5</span>
-      <span class="bg-white p-3 rounded shadow">CSS3</span>
-      <span class="bg-white p-3 rounded shadow">Tailwind CSS</span>
-      <span class="bg-white p-3 rounded shadow">JavaScript</span>
-      <span class="bg-white p-3 rounded shadow">Git & GitHub</span>
-      <span class="bg-white p-3 rounded shadow">VS Code</span>
-    </div>
-  </section>
-
-  <!-- Back Button -->
-  <div class="text-center mb-10">
-    <a href="{% url 'index' %}" class="inline-block bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition">← Back to Home</a>
+  <!-- Top bar -->
+  <div class="max-w-6xl mx-auto px-6 pt-6">
+    <a href="{% url 'index' %}#services" class="inline-flex items-center gap-2 text-sm font-semibold text-[#1B3A5C] hover:text-[#3E7CB1] transition-colors">
+      <i class="fas fa-arrow-left"></i> Back to Services
+    </a>
   </div>
 
-</body>
-</html>
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-6 pt-8 pb-16">
+    <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#0F2338] via-[#1B3A5C] to-[#3E7CB1] p-10 sm:p-14 text-white service-hero-fade">
+      <div class="pointer-events-none absolute -top-20 -right-20 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-24 -left-10 w-72 h-72 bg-[#8FC1E3]/20 rounded-full blur-3xl"></div>
+      <div class="relative flex flex-col md:flex-row items-center gap-10">
+        <div class="relative w-32 h-32 sm:w-44 sm:h-44 rounded-3xl overflow-hidden border border-white/20 shrink-0 shadow-2xl">
+          <img src="{% static 'main/images/frontend.avif' %}" alt="Frontend Development" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent"></div>
+          <div class="absolute bottom-2.5 right-2.5 w-10 h-10 rounded-xl bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-code"></i>
+          </div>
+        </div>
+        <div class="text-center md:text-left">
+          <span class="inline-block text-xs font-bold tracking-[0.2em] uppercase text-white/70 mb-3">Service</span>
+          <h1 class="text-3xl sm:text-5xl font-extrabold mb-3">Frontend Development</h1>
+          <p class="text-white/80 text-lg max-w-xl">Designing responsive, interactive, and visually appealing user interfaces that turn a backend into a product people actually enjoy using.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What I Offer + Features -->
+  <section class="max-w-6xl mx-auto px-6 pb-16 grid md:grid-cols-3 gap-10">
+    <div class="md:col-span-2">
+      <h2 class="text-2xl font-bold text-[#0f172a] mb-4">What I Offer</h2>
+      <p class="text-slate-600 leading-relaxed mb-8">
+        As a backend-first engineer, I build interfaces that talk cleanly to the APIs behind them — fast, responsive
+        layouts with HTML5, CSS3, Tailwind CSS, and JavaScript, focused on clarity and usability rather than
+        unnecessary complexity. Every page is built mobile-first and tested across devices.
+      </p>
+
+      <div class="grid sm:grid-cols-2 gap-5">
+        <div class="p-5 rounded-2xl bg-white border border-[#DCEDF7] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div class="w-11 h-11 rounded-xl bg-[#EAF3FA] text-[#3E7CB1] flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-mobile-screen-button"></i></div>
+          <h4 class="font-bold text-[#0f172a] mb-1.5">Responsive by Default</h4>
+          <p class="text-sm text-slate-500 leading-relaxed">Layouts that adapt cleanly across mobile, tablet, and desktop — no breakpoints as an afterthought.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-[#DCEDF7] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div class="w-11 h-11 rounded-xl bg-[#EAF3FA] text-[#3E7CB1] flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+          <h4 class="font-bold text-[#0f172a] mb-1.5">Modern UI/UX</h4>
+          <p class="text-sm text-slate-500 leading-relaxed">Clean visual hierarchy, purposeful motion, and interfaces that don't fight the user.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-[#DCEDF7] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div class="w-11 h-11 rounded-xl bg-[#EAF3FA] text-[#3E7CB1] flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-code-branch"></i></div>
+          <h4 class="font-bold text-[#0f172a] mb-1.5">Clean, Maintainable Code</h4>
+          <p class="text-sm text-slate-500 leading-relaxed">Structured, componentized markup that's easy to hand off or extend later.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-[#DCEDF7] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div class="w-11 h-11 rounded-xl bg-[#EAF3FA] text-[#3E7CB1] flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-bolt"></i></div>
+          <h4 class="font-bold text-[#0f172a] mb-1.5">API-Ready Interfaces</h4>
+          <p class="text-sm text-slate-500 leading-relaxed">Built to wire straight into Django REST endpoints — since I build both sides.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-bold text-[#0f172a] mb-4">Tech Stack</h3>
+      <div class="flex flex-wrap gap-2 mb-8">
+        <span class="px-4 py-1.5 rounded-full bg-[#EAF3FA] text-[#245678] text-sm font-semibold border border-[#C6E0F0]">HTML5</span>
+        <span class="px-4 py-1.5 rounded-full bg-[#EAF3FA] text-[#245678] text-sm font-semibold border border-[#C6E0F0]">CSS3</span>
+        <span class="px-4 py-1.5 rounded-full bg-[#EAF3FA] text-[#245678] text-sm font-semibold border border-[#C6E0F0]">Tailwind CSS</span>
+        <span class="px-4 py-1.5 rounded-full bg-[#EAF3FA] text-[#245678] text-sm font-semibold border border-[#C6E0F0]">JavaScript</span>
+        <span class="px-4 py-1.5 rounded-full bg-[#EAF3FA] text-[#245678] text-sm font-semibold border border-[#C6E0F0]">Git & GitHub</span>
+      </div>
+
+      <h3 class="text-lg font-bold text-[#0f172a] mb-4">Proven On</h3>
+      <ul class="space-y-4">
+        <li class="flex gap-3">
+          <i class="fa-solid fa-cloud-sun text-[#3E7CB1] mt-1"></i>
+          <div>
+            <p class="font-semibold text-[#0f172a] text-sm">Daily Weather Application</p>
+            <p class="text-xs text-slate-500">HTML · CSS · JavaScript · Weather API</p>
+          </div>
+        </li>
+        <li class="flex gap-3">
+          <i class="fa-solid fa-layer-group text-[#3E7CB1] mt-1"></i>
+          <div>
+            <p class="font-semibold text-[#0f172a] text-sm">This Portfolio</p>
+            <p class="text-xs text-slate-500">Django templates · Tailwind CSS · vanilla JS</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-4xl mx-auto px-6 pb-24 text-center">
+    <div class="rounded-3xl border border-[#C6E0F0] bg-[#EAF3FA] p-10">
+      <h2 class="text-2xl font-bold text-[#0f172a] mb-3">Need a clean, working UI for your product?</h2>
+      <p class="text-slate-600 mb-6">Let's talk about what you're building.</p>
+      <a href="{% url 'index' %}#contact" class="inline-flex items-center gap-2 bg-[#3E7CB1] text-white font-semibold px-8 py-3.5 rounded-full hover:bg-[#2C5F87] transition-colors">
+        Get in touch <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<style>
+  .service-hero-fade { animation: serviceHeroFade 0.7s cubic-bezier(.16,1,.3,1) both; }
+  @keyframes serviceHeroFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { .service-hero-fade { animation: none; } }
+</style>
+
+{% endblock %}

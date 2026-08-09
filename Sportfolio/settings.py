@@ -10,10 +10,20 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load local environment variables from a .env file (gitignored) if python-dotenv
+# is installed. In production (Render, PythonAnywhere, etc.) set these as real
+# environment variables instead — .env is only for local development.
+try:
+    from dotenv import load_dotenv
+    load_dotenv(BASE_DIR / '.env')
+except ImportError:
+    pass
 
 STATIC_URL = '/static/'
 
@@ -132,9 +142,15 @@ STATICFILES_DIRS = [BASE_DIR / "main" / "static"]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email Backend Configuration for Gmail
+# Credentials come from environment variables (see .env / .env.example) —
+# never hardcode real secrets here, this file is committed to git.
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = '2114955004@uits.edu.bd'  # Your Gmail address
-EMAIL_HOST_PASSWORD = 'xjyy grqw udgh jrsn'  # Use the generated App Password here (not your Gmail password)
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+
+# Where contact-form submissions actually get delivered. Falls back to
+# EMAIL_HOST_USER if not set.
+CONTACT_RECIPIENT_EMAIL = os.environ.get('CONTACT_RECIPIENT_EMAIL', '') or EMAIL_HOST_USER

@@ -71,73 +71,68 @@
      class="hidden lg:block absolute -bottom-1/4 right-0 left-0 mx-auto w-150 h-150 bg-gradient-to-b from-slate-700 rounded-full -z-10"
    ></div>
 
-   <!-- IT Engineer & Web Developer Text -->
- <div class="absolute top-32 left-6 sm:left-20 sm:top-52 z-30 flex flex-col gap-8 select-none">
-  
-  <h1 class="meta-text text-white-variant text-[3.5rem] sm:text-[2.5rem] lg:text-[4.5rem]">
-    BACKEND ENGINEER
+   <!-- Hero Headline -->
+ <div class="hero-block absolute top-32 left-6 sm:left-20 sm:top-52 z-30 flex flex-col gap-4">
+
+  <h1 class="hero-fade-1 font-[Poppins] font-extrabold leading-[1.2] tracking-tight text-[#141416] text-[2.25rem] sm:text-[2.75rem] lg:text-[3.75rem]">
+    Backend &amp;
+    <span class="hero-shine block pb-2 bg-gradient-to-r from-[#1B3A5C] via-[#3E7CB1] to-[#8FC1E3] bg-clip-text text-transparent">
+      DevOps Engineer
+    </span>
   </h1>
-  
-  <h2 class="meta-text text-black-variant text-[2.2rem] sm:text-[3.5rem] lg:text-[2.8rem] mt-[-1rem] sm:mt-[-2rem]">
-    SCALABLE API & AI SYSTEM BUILDER
-  </h2>
+
+  <div class="hero-fade-2 flex items-center gap-3">
+    <span class="hero-bar h-[3px] w-8 rounded-full bg-gradient-to-r from-[#3E7CB1] to-[#8FC1E3]"></span>
+    <p class="hero-sub font-[Poppins] text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase text-[#3f3f46]">
+      Scalable API &amp; AI System Builder
+    </p>
+  </div>
 
 </div>
 
 <style>
-  @font-face {
-    src: url("https://www.axis-praxis.org/fonts/webfonts/MetaVariableDemo-Set.woff2") format("woff2");
-    font-family: "Meta";
-    font-style: normal;
-    font-weight: normal;
+  /* Staggered entrance */
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-fade-1 { animation: heroFadeUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) both; }
+  .hero-fade-2 { animation: heroFadeUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.15s both; }
+
+  /* Gradient shimmer + glow on hover */
+  .hero-shine {
+    background-size: 200% auto;
+    background-position: 0% 0;
+    transition: background-position 0.7s ease, transform 0.4s ease, filter 0.4s ease;
+    cursor: default;
+  }
+  .hero-block:hover .hero-shine {
+    background-position: 100% 0;
+    transform: scale(1.04);
+    filter: drop-shadow(0 4px 18px rgba(62, 124, 177, 0.45));
   }
 
-  .meta-text {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    font-variation-settings: "wght" 900, "ital" 1;
-    font-family: "Meta", sans-serif;
-    line-height: 1.1;
-    cursor: pointer;
+  /* Accent bar grows + glows on hover */
+  .hero-bar {
+    transition: width 0.4s ease, box-shadow 0.4s ease;
+  }
+  .hero-block:hover .hero-bar {
+    width: 3.5rem;
+    box-shadow: 0 0 12px rgba(62, 124, 177, 0.6);
   }
 
-  /* IT ENGINEER - White Style */
-  .text-white-variant {
-    color: white;
-    -webkit-text-stroke: 1.5px #d6f4f4;
-    text-shadow: 
-      3px 3px 0px #07bccc,
-      6px 6px 0px #d6170d,
-      9px 9px 0px #86dbf2;
+  /* Subtitle tightens color + tracking on hover */
+  .hero-sub {
+    transition: color 0.4s ease, letter-spacing 0.4s ease;
+  }
+  .hero-block:hover .hero-sub {
+    color: #1B3A5C;
+    letter-spacing: 0.32em;
   }
 
-  /* WEB DEVELOPER - Black Style */
-  .text-black-variant {
-    color: black;
-    -webkit-text-stroke: 1.5px #333; /* Darker stroke for the black text */
-    text-shadow: 
-      3px 3px 0px #444,
-      6px 6px 0px #fbfafb,
-      9px 9px 0px #000;
-  }
-
-  /* Interactive Hover State for both */
-  .meta-text:hover {
-    font-variation-settings: "wght" 400, "ital" 0;
-    text-shadow: none;
-    transform: translateY(-3px);
-  }
-
-  /* Hover specifically for the black text so it stays visible on dark backgrounds */
-  .text-black-variant:hover {
-    color: #5eb3fd; /* Changes to a nice blue on hover for contrast */
-    -webkit-text-stroke: 1.5px white;
-  }
-
-  @media (max-width: 640px) {
-    .meta-text {
-      -webkit-text-stroke: 1px !important;
-      text-shadow: 2px 2px 0px rgba(0,0,0,0.2) !important;
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-fade-1, .hero-fade-2 { animation: none; opacity: 1; transform: none; }
+    .hero-shine, .hero-bar, .hero-sub { transition: none; }
   }
 </style>
 

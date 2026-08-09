@@ -6,7 +6,7 @@ urlpatterns = [
     path('frontend/', views.frontend_detail, name='frontend'),
     path('backend/', views.backend, name='backend'),
     path('database/', views.database, name='database'),
-    path('desktop/', views.desktop, name='desktop'),
+    path('devops/', views.devops, name='devops'),
     path('software/', views.software, name= 'software'),
     path('contact/', views.contact_view, name='contact'),
     

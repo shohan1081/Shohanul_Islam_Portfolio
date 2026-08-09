@@ -1,111 +1,164 @@
 {% load static %}
-<div
-  class="relative flex flex-col justify-center items-center p-10 my-10 mx-5 mt-16"
->
-  <p class="text-gray-600 text-lg font-medium tracking-wide" id="services">What do I offer?</p>
-  <h1 class="sm:text-5xl text-2xl font-bold text-black">Services</h1>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-10">
-  <div
-  class="min-h-[20rem] w-full shadow-xl rounded-2xl p-5 flex flex-col justify-end gap-4 bg-no-repeat bg-cover bg-center text-white relative overflow-hidden transform transition-all duration-500 hover:scale-105"
-  style="background-image: url('{% static 'main/images/frontend.avif' %}');"
->
 
-  <div class="absolute inset-0 bg-black bg-opacity-50 rounded-2xl"></div>
+<section id="services" class="relative overflow-hidden bg-gradient-to-b from-[#0a0a0a] via-[#150a2e] to-[#0a0a0a] py-24">
 
-  <div class="relative z-10 p-4">
-    <h1 class="font-bold text-xl mb-2">Frontend Developer</h1>
-    <p class="text-sm mb-4">
-      Designing responsive, interactive, and visually appealing user interfaces using HTML, CSS, Tailwind CSS, and JavaScript
-    </p>
-    <a
-      class="text-black bg-white font-semibold px-4 py-2 rounded-full hover:bg-amber-500 hover:text-black transition-all"
-      href="{% url 'frontend' %}"
-      >Read More</a
-    >
+  <!-- ambient glow -->
+  <div class="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-[#3E7CB1]/20 blur-[140px]"></div>
+
+  <div class="relative max-w-3xl mx-auto text-center px-6 mb-14">
+    <span class="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.25em] uppercase text-[#8FC1E3] mb-4">
+      <span class="w-1.5 h-1.5 rounded-full bg-[#3E7CB1] animate-pulse"></span>
+      What I Offer
+    </span>
+    <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">Services</h2>
+    <p class="text-white/50 text-sm sm:text-base">Drag it, swipe it, or just watch it flow — here's how I can help bring your product to life.</p>
   </div>
-</div>
 
-<div
-  class="min-h-[20rem] w-full shadow-xl rounded-2xl p-5 flex flex-col justify-end gap-4 bg-no-repeat bg-cover bg-center text-white relative overflow-hidden transform transition-all duration-500 hover:scale-105"
-  style="background-image: url('{% static 'main/images/backend.jpg' %}');"
->
+  <!-- Carousel -->
+  <div class="relative">
+    <div class="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-40 bg-gradient-to-r from-[#0a0a0a] to-transparent z-10"></div>
+    <div class="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-40 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10"></div>
 
-  <div class="absolute inset-0 bg-black bg-opacity-50 rounded-2xl"></div>
-
-  <div class="relative z-10 p-4">
-    <h1 class="font-bold text-xl mb-2">Backend Developer</h1>
-    <p class="text-sm mb-4">
-      Building robust server-side logic and secure APIs using Django and Python to power seamless web experiences
-    </p>
-    <a
-      class="text-black bg-white font-semibold px-4 py-2 rounded-full hover:bg-amber-500 hover:text-black transition-all"
-      href="{% url 'backend' %}"
-      >Read More</a
-    >
+    <div id="services-track" class="flex w-max cursor-grab select-none">
+      {% for s in services %}
+      <a href="{% url s.url_name %}" draggable="false"
+         class="service-card group shrink-0 w-[280px] sm:w-[320px] mx-3 rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 hover:border-[#3E7CB1]/60 transition-colors duration-300 flex flex-col">
+        {% if s.image %}
+        <div class="relative h-40 sm:h-44 overflow-hidden shrink-0">
+          <img src="{% static s.image %}" alt="{{ s.title }}" draggable="false"
+               class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/10 to-transparent"></div>
+          <div class="absolute bottom-3 left-3 w-11 h-11 rounded-xl bg-gradient-to-br from-[#3E7CB1] to-[#8FC1E3] flex items-center justify-center text-lg text-white shadow-lg shadow-black/40">
+            <i class="{{ s.icon }}"></i>
+          </div>
+        </div>
+        {% else %}
+        <div class="pt-7 px-7">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#3E7CB1] to-[#8FC1E3] flex items-center justify-center text-2xl text-white shadow-lg shadow-[#3E7CB1]/30 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300">
+            <i class="{{ s.icon }}"></i>
+          </div>
+        </div>
+        {% endif %}
+        <div class="p-7 flex flex-col gap-3 flex-1">
+          <h3 class="text-lg font-bold text-white">{{ s.title }}</h3>
+          <p class="text-sm text-white/60 leading-relaxed">{{ s.desc }}</p>
+          <span class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-[#8FC1E3] group-hover:text-white transition-colors">
+            Learn more <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+          </span>
+        </div>
+      </a>
+      {% endfor %}
+      {% for s in services %}
+      <a href="{% url s.url_name %}" draggable="false" aria-hidden="true" tabindex="-1"
+         class="service-card group shrink-0 w-[280px] sm:w-[320px] mx-3 rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 hover:border-[#3E7CB1]/60 transition-colors duration-300 flex flex-col">
+        {% if s.image %}
+        <div class="relative h-40 sm:h-44 overflow-hidden shrink-0">
+          <img src="{% static s.image %}" alt="" draggable="false"
+               class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/10 to-transparent"></div>
+          <div class="absolute bottom-3 left-3 w-11 h-11 rounded-xl bg-gradient-to-br from-[#3E7CB1] to-[#8FC1E3] flex items-center justify-center text-lg text-white shadow-lg shadow-black/40">
+            <i class="{{ s.icon }}"></i>
+          </div>
+        </div>
+        {% else %}
+        <div class="pt-7 px-7">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#3E7CB1] to-[#8FC1E3] flex items-center justify-center text-2xl text-white shadow-lg shadow-[#3E7CB1]/30 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300">
+            <i class="{{ s.icon }}"></i>
+          </div>
+        </div>
+        {% endif %}
+        <div class="p-7 flex flex-col gap-3 flex-1">
+          <h3 class="text-lg font-bold text-white">{{ s.title }}</h3>
+          <p class="text-sm text-white/60 leading-relaxed">{{ s.desc }}</p>
+          <span class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-[#8FC1E3] group-hover:text-white transition-colors">
+            Learn more <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+          </span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
   </div>
-</div>
 
-<div
-  class="min-h-[20rem] w-full shadow-xl rounded-2xl p-5 flex flex-col justify-end gap-4 bg-no-repeat bg-cover bg-center text-white relative overflow-hidden transform transition-all duration-500 hover:scale-105"
-  style="background-image: url('{% static 'main/images/database.avif' %}');"
->
+  <p class="relative mt-10 flex items-center justify-center gap-2 text-white/30 text-xs">
+    <i class="fas fa-hand-pointer"></i> drag to explore
+  </p>
+</section>
 
-  <div class="absolute inset-0 bg-black bg-opacity-50 rounded-2xl"></div>
+<script>
+  // Auto-scrolling, swipeable / draggable services carousel
+  (function () {
+    const track = document.getElementById('services-track');
+    if (!track) return;
 
-  <div class="relative z-10 p-4">
-    <h1 class="font-bold text-xl mb-2">Database Design & Management</h1>
-    <p class="text-sm mb-4">
-      Structuring and managing efficient, secure databases with SQL and SQLite to ensure reliable data flow and storage.
-    </p>
-    <a
-      class="text-black bg-white font-semibold px-4 py-2 rounded-full hover:bg-amber-500 hover:text-black transition-all"
-      href="{% url 'database' %}"
-      >Read More</a
-    >
-  </div>
-</div>
+    let pos = 0;
+    let paused = false;
+    let isDown = false;
+    let startX = 0;
+    let startPos = 0;
+    let dragDistance = 0;
+    const speed = 0.55; // px per frame auto-scroll
 
-<div
-  class="min-h-[20rem] w-full shadow-xl rounded-2xl p-5 flex flex-col justify-end gap-4 bg-no-repeat bg-cover bg-center text-white relative overflow-hidden transform transition-all duration-500 hover:scale-105"
-  style="background-image: url('{% static 'main/images/gui.jpg' %}');"
->
+    // Track is rendered twice back-to-back, so half its width is one full loop
+    const loopWidth = () => track.scrollWidth / 2;
 
-  <div class="absolute inset-0 bg-black bg-opacity-50 rounded-2xl"></div>
+    function tick() {
+      if (!isDown && !paused) {
+        pos -= speed;
+        const w = loopWidth();
+        if (w > 0 && Math.abs(pos) >= w) pos += w;
+        track.style.transform = `translateX(${pos}px)`;
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
 
-  <div class="relative z-10 p-4">
-    <h1 class="font-bold text-xl mb-2">Desktop Application Development</h1>
-    <p class="text-sm mb-4">
-      Building intuitive and functional desktop applications using Python and GUI frameworks for seamless user experiences.
-    </p>
-    <a
-      class="text-black bg-white font-semibold px-4 py-2 rounded-full hover:bg-amber-500 hover:text-black transition-all"
-      href="{% url 'desktop' %}"
-      >Read More</a
-    >
-  </div>
-</div>
+    function getX(e) {
+      return e.touches ? e.touches[0].clientX : e.clientX;
+    }
 
-<div
-  class="min-h-[20rem] w-full shadow-xl rounded-2xl p-5 flex flex-col justify-end gap-4 bg-no-repeat bg-cover bg-center text-white relative overflow-hidden transform transition-all duration-500 hover:scale-105"
-  style="background-image: url('{% static 'main/images/software.jpg' %}');"
->
+    function dragStart(e) {
+      isDown = true;
+      dragDistance = 0;
+      startX = getX(e);
+      startPos = pos;
+      track.style.cursor = 'grabbing';
+    }
 
-  <div class="absolute inset-0 bg-black bg-opacity-50 rounded-2xl"></div>
+    function dragMove(e) {
+      if (!isDown) return;
+      const x = getX(e);
+      const dx = x - startX;
+      dragDistance = Math.abs(dx);
+      pos = startPos + dx;
+      const w = loopWidth();
+      if (w > 0) {
+        if (pos > 0) pos -= w;
+        if (pos < -w) pos += w;
+      }
+      track.style.transform = `translateX(${pos}px)`;
+    }
 
-  <div class="relative z-10 p-4">
-    <h1 class="font-bold text-xl mb-2">Software Development</h1>
-    <p class="text-sm mb-4">
-      Creating innovative and efficient software solutions tailored to your needs. From custom 
-      applications to complex enterprise systems, I specialize 
-      in building scalable, reliable, and user-friendly software that drives business success.
-    </p>
-    <a
-      class="text-black bg-white font-semibold px-4 py-2 rounded-full hover:bg-amber-500 hover:text-black transition-all"
-      href="{% url 'software' %}"
-      >Read More</a
-    >
-  </div>
-</div>
+    function dragEnd() {
+      isDown = false;
+      track.style.cursor = 'grab';
+    }
 
-</div>
+    track.addEventListener('mousedown', dragStart);
+    window.addEventListener('mousemove', dragMove);
+    window.addEventListener('mouseup', dragEnd);
+    track.addEventListener('touchstart', dragStart, { passive: true });
+    track.addEventListener('touchmove', dragMove, { passive: true });
+    track.addEventListener('touchend', dragEnd);
+
+    track.addEventListener('mouseenter', () => { paused = true; });
+    track.addEventListener('mouseleave', () => { paused = false; });
+
+    // Prevent a link click from firing right after a real drag
+    track.addEventListener('click', (e) => {
+      if (dragDistance > 6) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+  })();
+</script>

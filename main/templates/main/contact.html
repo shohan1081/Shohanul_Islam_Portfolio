@@ -11,61 +11,148 @@
         Have any questions? Let's connect!
       </p>
     </div>
-    {% if success_message %}
-    <div class="text-center py-4 mb-6 text-white bg-green-600 text-lg font-semibold rounded-xl">
-      {{ success_message }}
+
+    <!-- Status banner (shown by JS on submit, or via ?contact=... for the no-JS fallback) -->
+    <div id="contact-status" class="max-w-2xl mx-auto mb-6 {% if request.GET.contact != 'success' and request.GET.contact != 'error' %}hidden{% endif %}">
+      {% if request.GET.contact == 'success' %}
+        <div class="text-center py-4 px-4 text-white bg-emerald-600 text-base font-semibold rounded-xl">
+          Thanks — your message has been sent. I'll get back to you soon!
+        </div>
+      {% elif request.GET.contact == 'error' %}
+        <div class="text-center py-4 px-4 text-white bg-red-600 text-base font-semibold rounded-xl">
+          Something went wrong sending your message. Please try again or email me directly.
+        </div>
+      {% endif %}
     </div>
-  {% endif %}
+
     <!-- Form Section -->
-    <form method="post" class="max-w-2xl mx-auto bg-gray-900 p-8 rounded-2xl shadow-2xl" action="{% url 'contact' %}>
+    <form method="post" id="contact-form" class="max-w-2xl mx-auto bg-gray-900 p-8 rounded-2xl shadow-2xl" action="{% url 'contact' %}">
       {% csrf_token %}
 
       <!-- Name Input -->
       <div class="mb-6">
-        <label for="id_name" class="block text-amber-50 text-sm font-medium mb-2">Name</label>
+        <label for="contact-name" class="block text-amber-50 text-sm font-medium mb-2">Name</label>
         <input
           type="text"
           name="name"
-          id="name"
+          id="contact-name"
+          required
           placeholder="Enter your name"
           class="w-full bg-gray-800 text-amber-50 p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all"
         />
-        {{ form.name }}  
-    </div>
+        <p class="field-error hidden text-red-400 text-sm mt-1"></p>
+      </div>
 
       <!-- Email Input -->
       <div class="mb-6">
-        <label for="id_email" class="block text-amber-50 text-sm font-medium mb-2">Email</label>
+        <label for="contact-email" class="block text-amber-50 text-sm font-medium mb-2">Email</label>
         <input
           type="email"
           name="email"
-          id="email"
+          id="contact-email"
+          required
           placeholder="Enter your email"
           class="w-full bg-gray-800 text-amber-50 p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all"
         />
-        {{ form.email }}  
-    </div>
+        <p class="field-error hidden text-red-400 text-sm mt-1"></p>
+      </div>
 
       <!-- Message Textarea -->
       <div class="mb-8">
-        <label for="id_message" class="block text-amber-50 text-sm font-medium mb-2">Message</label>
+        <label for="contact-message" class="block text-amber-50 text-sm font-medium mb-2">Message</label>
         <textarea
           name="message"
-          id="message"
+          id="contact-message"
+          required
           placeholder="Write your message here..."
           rows="6"
           class="w-full bg-gray-800 text-amber-50 p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all"
         ></textarea>
-        {{ form.message }} 
-    </div>
+        <p class="field-error hidden text-red-400 text-sm mt-1"></p>
+      </div>
 
       <!-- Submit Button -->
       <button
         type="submit"
-        class="w-full bg-amber-500 text-gray-900 font-semibold py-3 px-6 rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all"
+        id="contact-submit"
+        class="w-full bg-amber-500 text-gray-900 font-semibold py-3 px-6 rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        Send Message
+        <span class="btn-text">Send Message</span>
       </button>
     </form>
   </div>
 </div>
+
+<script>
+  (function () {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    const statusBox = document.getElementById('contact-status');
+    const submitBtn = document.getElementById('contact-submit');
+    const btnText = submitBtn.querySelector('.btn-text');
+
+    function clearFieldErrors() {
+      form.querySelectorAll('.field-error').forEach(el => {
+        el.textContent = '';
+        el.classList.add('hidden');
+      });
+    }
+
+    function showFieldError(fieldName, message) {
+      const input = form.querySelector(`[name="${fieldName}"]`);
+      if (!input) return;
+      const errEl = input.parentElement.querySelector('.field-error');
+      if (errEl) {
+        errEl.textContent = message;
+        errEl.classList.remove('hidden');
+      }
+    }
+
+    function showBanner(kind, message) {
+      statusBox.classList.remove('hidden');
+      statusBox.innerHTML = `<div class="text-center py-4 px-4 text-white ${kind === 'success' ? 'bg-emerald-600' : 'bg-red-600'} text-base font-semibold rounded-xl">${message}</div>`;
+      statusBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      clearFieldErrors();
+      statusBox.classList.add('hidden');
+
+      submitBtn.disabled = true;
+      btnText.textContent = 'Sending…';
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          body: new FormData(form),
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          showBanner('success', "Thanks — your message has been sent. I'll get back to you soon!");
+          form.reset();
+        } else if (data.errors) {
+          if (data.errors.__all__) {
+            showBanner('error', data.errors.__all__[0].message || data.errors.__all__[0]);
+          } else {
+            Object.keys(data.errors).forEach(field => {
+              const err = data.errors[field][0];
+              showFieldError(field, err.message || err);
+            });
+            showBanner('error', 'Please fix the highlighted fields and try again.');
+          }
+        } else {
+          showBanner('error', 'Something went wrong. Please try again or email me directly.');
+        }
+      } catch (err) {
+        showBanner('error', 'Network error — please check your connection and try again.');
+      } finally {
+        submitBtn.disabled = false;
+        btnText.textContent = 'Send Message';
+      }
+    });
+  })();
+</script>

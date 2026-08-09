@@ -1,46 +1,135 @@
+{% extends 'main/layout.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Frontend Developer</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-</head>
-<body class="bg-gray-100 text-gray-800">
+{% block content %}
 
-  <!-- Hero Section -->
-  <div class="flex justify-center items-center min-h-screen bg-gray-100 px-4 py-10">
-    <div class="w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden">
-      <div class="md:flex">
-        <div class="md:w-1/2 bg-cover bg-center" style="background-image: url('{% static 'main/images/backend.jpg' %}');">
-          <!-- Image Section -->
-          <div class="h-64 md:h-full bg-black bg-opacity-40 flex items-center justify-center text-white text-2xl font-bold">
-            Backend Developer
+<div class="bg-[#f7f5fc] min-h-screen">
+
+  <!-- Top bar -->
+  <div class="max-w-6xl mx-auto px-6 pt-6">
+    <a href="{% url 'index' %}#services" class="inline-flex items-center gap-2 text-sm font-semibold text-[#1B3A5C] hover:text-[#3E7CB1] transition-colors">
+      <i class="fas fa-arrow-left"></i> Back to Services
+    </a>
+  </div>
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-6 pt-8 pb-16">
+    <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#0F2338] via-[#1B3A5C] to-[#3E7CB1] p-10 sm:p-14 text-white service-hero-fade">
+      <div class="pointer-events-none absolute -top-20 -right-20 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-24 -left-10 w-72 h-72 bg-[#8FC1E3]/20 rounded-full blur-3xl"></div>
+      <div class="relative flex flex-col md:flex-row items-center gap-10">
+        <div class="relative w-32 h-32 sm:w-44 sm:h-44 rounded-3xl overflow-hidden border border-white/20 shrink-0 shadow-2xl">
+          <img src="{% static 'main/images/backend.jpg' %}" alt="Backend Development" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent"></div>
+          <div class="absolute bottom-2.5 right-2.5 w-10 h-10 rounded-xl bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-server"></i>
           </div>
         </div>
-        <div class="md:w-1/2 p-6 flex flex-col justify-center">
-          <h2 class="text-2xl font-bold mb-4">Backend Developer</h2>
-          <p class="text-gray-700 mb-4">
-            Building robust server-side logic and secure APIs using Django and Python to power seamless web experiences.
-          </p>
-          <ul class="list-disc pl-5 text-gray-700 space-y-2 mb-4">
-            <li>RESTful API development with Django REST Framework</li>
-            <li>Authentication, permissions & middleware integration</li>
-            <li>Database operations with SQLite, PostgreSQL, MySQL</li>
-            <li>Efficient backend logic using Python</li>
-            <li>Secure and scalable architecture</li>
-          </ul>
-          <a
-            href="{% url 'index' %}"
-            class="inline-block mt-2 bg-black text-white px-5 py-2 rounded-full hover:bg-gray-800 transition"
-          >
-            ← Back to Home
-          </a>
+        <div class="text-center md:text-left">
+          <span class="inline-block text-xs font-bold tracking-[0.2em] uppercase text-white/70 mb-3">Service</span>
+          <h1 class="text-3xl sm:text-5xl font-extrabold mb-3">Backend Development</h1>
+          <p class="text-white/80 text-lg max-w-xl">Building robust server-side logic and secure REST APIs with Django and Python to power AI-driven, real-world production systems.</p>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-</body>
-</html>
+  <!-- What I Offer + Features -->
+  <section class="max-w-6xl mx-auto px-6 pb-16 grid md:grid-cols-3 gap-10">
+    <div class="md:col-span-2">
+      <h2 class="text-2xl font-bold text-[#0f172a] mb-4">What I Offer</h2>
+      <p class="text-slate-600 leading-relaxed mb-8">
+        I design and build the systems that power an application from the inside — REST APIs, authentication,
+        payment processing, and background jobs — using Django and Django REST Framework. As a Junior Backend
+        Developer and Co-Lead of a 13-engineer team, I architect backend workflows that stay reliable in production,
+        not just in a demo.
+      </p>
+
+      <div class="grid sm:grid-cols-2 gap-5">
+        <div class="p-5 rounded-2xl bg-white border border-[#DCEDF7] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div class="w-11 h-11 rounded-xl bg-[#EAF3FA] text-[#3E7CB1] flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-plug"></i></div>
+          <h4 class="font-bold text-[#0f172a] mb-1.5">RESTful API Development</h4>
+          <p class="text-sm text-slate-500 leading-relaxed">Clean, versioned endpoints built with Django REST Framework, validated end-to-end with Postman.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-[#DCEDF7] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div class="w-11 h-11 rounded-xl bg-[#EAF3FA] text-[#3E7CB1] flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+          <h4 class="font-bold text-[#0f172a] mb-1.5">Auth & Permissions</h4>
+          <p class="text-sm text-slate-500 leading-relaxed">JWT auth, Google OAuth, and role-based permissions wired through custom middleware.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-[#DCEDF7] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div class="w-11 h-11 rounded-xl bg-[#EAF3FA] text-[#3E7CB1] flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-credit-card"></i></div>
+          <h4 class="font-bold text-[#0f172a] mb-1.5">Payment Systems</h4>
+          <p class="text-sm text-slate-500 leading-relaxed">Stripe & Google Play Billing integrations with webhook automation for subscriptions.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-[#DCEDF7] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div class="w-11 h-11 rounded-xl bg-[#EAF3FA] text-[#3E7CB1] flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-robot"></i></div>
+          <h4 class="font-bold text-[#0f172a] mb-1.5">AI-Powered Backends</h4>
+          <p class="text-sm text-slate-500 leading-relaxed">Wiring LLM & voice APIs (ElevenLabs, chat models) into production-grade Django services.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-bold text-[#0f172a] mb-4">Tech Stack</h3>
+      <div class="flex flex-wrap gap-2 mb-8">
+        <span class="px-4 py-1.5 rounded-full bg-[#EAF3FA] text-[#245678] text-sm font-semibold border border-[#C6E0F0]">Django</span>
+        <span class="px-4 py-1.5 rounded-full bg-[#EAF3FA] text-[#245678] text-sm font-semibold border border-[#C6E0F0]">Django REST Framework</span>
+        <span class="px-4 py-1.5 rounded-full bg-[#EAF3FA] text-[#245678] text-sm font-semibold border border-[#C6E0F0]">Python</span>
+        <span class="px-4 py-1.5 rounded-full bg-[#EAF3FA] text-[#245678] text-sm font-semibold border border-[#C6E0F0]">Celery & Redis</span>
+        <span class="px-4 py-1.5 rounded-full bg-[#EAF3FA] text-[#245678] text-sm font-semibold border border-[#C6E0F0]">Stripe</span>
+        <span class="px-4 py-1.5 rounded-full bg-[#EAF3FA] text-[#245678] text-sm font-semibold border border-[#C6E0F0]">Webhooks</span>
+      </div>
+
+      <h3 class="text-lg font-bold text-[#0f172a] mb-4">Proven On</h3>
+      <ul class="space-y-4">
+        <li class="flex gap-3">
+          <i class="fa-solid fa-comment-dots text-[#3E7CB1] mt-1"></i>
+          <div>
+            <p class="font-semibold text-[#0f172a] text-sm">Voice Mind</p>
+            <p class="text-xs text-slate-500">DRF · PostgreSQL · Google Play Billing · AI — 1K+ downloads</p>
+          </div>
+        </li>
+        <li class="flex gap-3">
+          <i class="fa-solid fa-heart-pulse text-[#3E7CB1] mt-1"></i>
+          <div>
+            <p class="font-semibold text-[#0f172a] text-sm">Emothrive</p>
+            <p class="text-xs text-slate-500">DRF · PostgreSQL · Stripe · Celery · Redis</p>
+          </div>
+        </li>
+        <li class="flex gap-3">
+          <i class="fa-solid fa-comments text-[#3E7CB1] mt-1"></i>
+          <div>
+            <p class="font-semibold text-[#0f172a] text-sm">OP Mental Health</p>
+            <p class="text-xs text-slate-500">DRF · PostgreSQL · Stripe — 4 chatbot workflows</p>
+          </div>
+        </li>
+        <li class="flex gap-3">
+          <i class="fa-solid fa-handshake text-[#3E7CB1] mt-1"></i>
+          <div>
+            <p class="font-semibold text-[#0f172a] text-sm">ANEXO</p>
+            <p class="text-xs text-slate-500">DRF · PostgreSQL · JWT Authentication</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-4xl mx-auto px-6 pb-24 text-center">
+    <div class="rounded-3xl border border-[#C6E0F0] bg-[#EAF3FA] p-10">
+      <h2 class="text-2xl font-bold text-[#0f172a] mb-3">Need a backend that won't fall over in production?</h2>
+      <p class="text-slate-600 mb-6">Let's talk about what you're building.</p>
+      <a href="{% url 'index' %}#contact" class="inline-flex items-center gap-2 bg-[#3E7CB1] text-white font-semibold px-8 py-3.5 rounded-full hover:bg-[#2C5F87] transition-colors">
+        Get in touch <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<style>
+  .service-hero-fade { animation: serviceHeroFade 0.7s cubic-bezier(.16,1,.3,1) both; }
+  @keyframes serviceHeroFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { .service-hero-fade { animation: none; } }
+</style>
+
+{% endblock %}
