@@ -4,7 +4,7 @@
  <img
  src="{% static 'main/images/profile22.png' %}"
  alt="Profile Image"
- class="absolute bottom-0 right-0 lg:left-0 mx-auto object-cover h-6/7 lg:h-full z-50"id="home"
+ class="absolute bottom-0 right-0 2xl:left-0 mx-auto object-cover h-6/7 sm:max-w-[140px] md:max-w-[240px] 2xl:max-w-none 2xl:h-full z-50"id="home"
 />
 
    <!-- Navbar (Behind Profile Image) -->
@@ -49,15 +49,15 @@
     
    
        <!-- Hamburger Icon -->
-       <div id="hamburger" class="md:hidden space-y-1 cursor-pointer z-50">
-         <div class="w-6 h-0.5 bg-white"></div>
-         <div class="w-6 h-0.5 bg-white"></div>
-         <div class="w-6 h-0.5 bg-white"></div>
+       <div id="hamburger" class="md:hidden flex flex-col justify-center gap-1.5 w-8 h-8 cursor-pointer z-50" aria-label="Toggle menu" aria-expanded="false">
+         <span class="ham-bar w-6 h-0.5 bg-white block"></span>
+         <span class="ham-bar w-6 h-0.5 bg-white block"></span>
+         <span class="ham-bar w-6 h-0.5 bg-white block"></span>
        </div>
      </div>
-   
+
      <!-- Mobile Menu -->
-     <ul id="menu" class="hidden md:hidden text-white bg-indigo-950 absolute left-0 top-0 w-full p-10 space-y-4 text-center rounded-b-3xl">
+     <ul id="menu" class="md:hidden text-white bg-indigo-950 absolute left-0 top-0 w-full p-10 space-y-4 text-center rounded-b-3xl">
        <li><a href="#home">Home</a></li>
        <li><a href="#about-me">About Me</a></li>
        <li><a href="#services">Services</a></li>
@@ -74,7 +74,7 @@
    <!-- Hero Headline -->
  <div class="hero-block absolute top-32 left-6 sm:left-20 sm:top-52 z-30 flex flex-col gap-4">
 
-  <h1 class="hero-fade-1 font-[Poppins] font-extrabold leading-[1.2] tracking-tight text-[#141416] text-[2.25rem] sm:text-[2.75rem] lg:text-[3.75rem]">
+  <h1 class="hero-fade-1 font-[Poppins] font-extrabold leading-[1.2] tracking-tight text-[#141416] text-[2.25rem] sm:text-[2.75rem] 2xl:text-[3.75rem]">
     Backend &amp;
     <span class="hero-shine block pb-2 bg-gradient-to-r from-[#1B3A5C] via-[#3E7CB1] to-[#8FC1E3] bg-clip-text text-transparent">
       DevOps Engineer
@@ -138,7 +138,7 @@
 
    <!-- Hire Me Card -->
    <div
- class="hidden lg:flex flex-col absolute top-1/2 right-10 transform -translate-y-1/2 bg-[#F0F4F8] bg-opacity-80 p-8 w-[28rem] gap-6 rounded-2xl shadow-2xl font-[Poppins] transition-transform duration-300 hover:scale-[1.02]"
+ class="hire-card hidden 2xl:flex flex-col absolute top-1/2 right-10 bg-[#F0F4F8] bg-opacity-80 p-8 w-[28rem] gap-6 rounded-2xl shadow-2xl font-[Poppins] transition-transform duration-300"
 >
  <h1 class="text-5xl font-extrabold bg-gradient-to-r from-[#3A6073] to-[#16222A] bg-clip-text text-transparent">Hi, I'm Shohan</h1>
  <p class="text-gray-800 leading-relaxed">
@@ -174,7 +174,9 @@ Currently working as a <b>Junior Backend Developer</b> where I lead backend arch
    const navbar = document.getElementById('navbar');
 
    hamburger.addEventListener('click', () => {
-     menu.classList.toggle('hidden');
+     const isOpen = hamburger.classList.toggle('open');
+     menu.classList.toggle('menu-open', isOpen);
+     hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
    });
 
    window.addEventListener('scroll', () => {
@@ -211,5 +213,48 @@ Currently working as a <b>Junior Backend Developer</b> where I lead backend arch
 
    #navbar {
      transition: opacity 0.3s ease-in-out;
+   }
+
+   /* Hamburger -> X morph */
+   .ham-bar { transition: transform 0.35s cubic-bezier(.65,0,.35,1), opacity 0.25s ease; }
+   #hamburger.open .ham-bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+   #hamburger.open .ham-bar:nth-child(2) { opacity: 0; }
+   #hamburger.open .ham-bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+   /* Mobile dropdown fade + scale in, instead of an instant display toggle */
+   #menu {
+     opacity: 0;
+     transform: scale(0.96);
+     transform-origin: top;
+     pointer-events: none;
+     transition: opacity 0.3s ease, transform 0.3s ease;
+   }
+   #menu.menu-open {
+     opacity: 1;
+     transform: scale(1);
+     pointer-events: auto;
+   }
+
+   /* Hire Me card: entrance + idle float */
+   .hire-card {
+     animation: hireCardIn 0.8s cubic-bezier(.16,1,.3,1) 0.25s both, hireCardFloat 5s ease-in-out 1.05s infinite;
+   }
+   @keyframes hireCardIn {
+     from { opacity: 0; transform: translateX(40px) scale(0.98); }
+     to   { opacity: 1; transform: translateX(0) scale(1); }
+   }
+   @keyframes hireCardFloat {
+     0%, 100% { transform: translateY(-50%) translateY(0); }
+     50%      { transform: translateY(-50%) translateY(-8px); }
+   }
+   .hire-card:hover {
+     animation-play-state: paused;
+     transform: translateY(-50%) scale(1.02);
+   }
+
+   @media (prefers-reduced-motion: reduce) {
+     .ham-bar { transition: none; }
+     #menu { transition: none; }
+     .hire-card { animation: none; }
    }
  </style>

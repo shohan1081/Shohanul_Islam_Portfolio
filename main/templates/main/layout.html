@@ -19,8 +19,42 @@
 
   <!-- Link to Static CSS (add this line in case you have a custom CSS file) -->
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+  <!-- ============ Shared scroll-reveal utility (site-wide) ============ -->
+  <style>
+    .reveal-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(.16,1,.3,1), transform 0.8s cubic-bezier(.16,1,.3,1); }
+    .reveal-up.revealed { opacity: 1; transform: translateY(0); }
+
+    .reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity 0.9s cubic-bezier(.16,1,.3,1), transform 0.9s cubic-bezier(.16,1,.3,1); }
+    .reveal-left.revealed { opacity: 1; transform: translateX(0); }
+
+    .reveal-right { opacity: 0; transform: translateX(50px); transition: opacity 0.9s cubic-bezier(.16,1,.3,1), transform 0.9s cubic-bezier(.16,1,.3,1); }
+    .reveal-right.revealed { opacity: 1; transform: translateX(0); }
+
+    /* Grid/list children fade+rise in with a per-item stagger */
+    .reveal-stagger > * { opacity: 0; transform: translateY(32px); transition: opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1); }
+    .reveal-stagger > *.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-stagger > *:nth-child(1) { transition-delay: 0.04s; }
+    .reveal-stagger > *:nth-child(2) { transition-delay: 0.09s; }
+    .reveal-stagger > *:nth-child(3) { transition-delay: 0.14s; }
+    .reveal-stagger > *:nth-child(4) { transition-delay: 0.19s; }
+    .reveal-stagger > *:nth-child(5) { transition-delay: 0.24s; }
+    .reveal-stagger > *:nth-child(6) { transition-delay: 0.29s; }
+    .reveal-stagger > *:nth-child(7) { transition-delay: 0.34s; }
+    .reveal-stagger > *:nth-child(8) { transition-delay: 0.39s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-up, .reveal-left, .reveal-right, .reveal-stagger > * {
+        opacity: 1 !important; transform: none !important; transition: none !important;
+      }
+    }
+  </style>
 </head>
 <body class="">
+
+  <!-- Global scroll-progress bar -->
+  <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-[#3E7CB1] to-[#8FC1E3] z-[999] w-0" style="transition: width 0.1s linear;"></div>
+
   <div class="min-h-screen bg-[#999D9E] overflow-hidden relative pt-32">
 
     {% block content %}
@@ -163,6 +197,45 @@
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
+    })();
+
+    // Global scroll-progress bar
+    (function () {
+      var bar = document.getElementById('scroll-progress');
+      if (!bar) return;
+      function update() {
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+        bar.style.width = pct + '%';
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+
+    // Site-wide scroll-reveal: any element with .reveal-up / .reveal-left /
+    // .reveal-right, or a .reveal-stagger container's direct children, fades
+    // + slides into place the first time it enters the viewport.
+    (function () {
+      var els = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-stagger > *');
+      if (!els.length) return;
+
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('revealed'); });
+        return;
+      }
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      els.forEach(function (el) { io.observe(el); });
     })();
   </script>
 </body>

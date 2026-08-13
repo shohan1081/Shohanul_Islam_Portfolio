@@ -211,8 +211,19 @@
     flex: 1; background: transparent; border: none; padding: 12px 20px; border-radius: 999px; font-weight: 600; font-size: 1rem; color: #64748b; cursor: pointer; transition: color 0.3s;
     display: flex; align-items: center; justify-content: center; gap: 8px;
     position: relative; z-index: 1;
+    min-width: 0; /* allow flex items to shrink below content size instead of overflowing */
   }
+  .tab-btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .tab-btn:hover { color: #3E7CB1; }
+
+  @media (max-width: 640px) {
+    .tab-btn { padding: 10px 6px; font-size: 0.78rem; gap: 4px; }
+    .tab-btn i { font-size: 0.8rem; }
+  }
+  @media (max-width: 360px) {
+    .tab-btn i { display: none; }
+    .tab-btn { font-size: 0.72rem; }
+  }
   .tab-btn.active { color: #3E7CB1; }
 
   .content-glass-box {
@@ -316,9 +327,9 @@
 
       <div class="glass-panel tabs-nav-glass">
         <div class="tab-highlight"></div>
-        <button class="tab-btn active" data-index="0" onclick="showTab(event, 'tab-exp', 0)"><i class="fas fa-briefcase"></i> Experience</button>
-        <button class="tab-btn" data-index="1" onclick="showTab(event, 'tab-skills', 1)"><i class="fas fa-project-diagram"></i> Skills</button>
-        <button class="tab-btn" data-index="2" onclick="showTab(event, 'tab-edu', 2)"><i class="fas fa-graduation-cap"></i> Education</button>
+        <button class="tab-btn active" data-index="0" onclick="showTab(event, 'tab-exp', 0)"><i class="fas fa-briefcase"></i> <span>Experience</span></button>
+        <button class="tab-btn" data-index="1" onclick="showTab(event, 'tab-skills', 1)"><i class="fas fa-project-diagram"></i> <span>Skills</span></button>
+        <button class="tab-btn" data-index="2" onclick="showTab(event, 'tab-edu', 2)"><i class="fas fa-graduation-cap"></i> <span>Education</span></button>
       </div>
 
       <div class="glass-panel content-glass-box">
