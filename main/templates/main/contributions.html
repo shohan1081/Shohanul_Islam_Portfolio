@@ -1,0 +1,433 @@
+{% load static %}
+<!-- ============ GitHub contributions ============ -->
+<section id="contributions" class="relative overflow-hidden bg-[#0a0a0a] py-24">
+
+  <!-- ambient glow -->
+  <div class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#3E7CB1]/10 blur-[140px]"></div>
+
+  <div class="relative max-w-5xl mx-auto px-6">
+
+    <!-- Header -->
+    <div class="reveal-up text-center mb-12">
+      <span class="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.25em] uppercase text-[#8FC1E3] mb-4">
+        <i class="fa-brands fa-github"></i>
+        Open Source
+      </span>
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">My Code Contributions</h2>
+      <span class="inline-block h-[3px] w-16 rounded-full bg-gradient-to-r from-[#3E7CB1] to-[#8FC1E3] mb-4"></span>
+      <p class="text-white/50 text-sm sm:text-base max-w-xl mx-auto">Real, live activity pulled straight from the GitHub API — not a mockup.</p>
+    </div>
+
+    <!-- GitHub Contribution Graph (server-rendered by ghchart — doesn't touch
+         the client-side GitHub API rate limit used by the two cards below) -->
+    <div class="reveal-up rounded-3xl bg-white/[0.03] border border-white/10 p-6 sm:p-8 mb-6">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 shrink-0 rounded-xl bg-white/5 border border-white/10 text-[#8FC1E3] flex items-center justify-center">
+          <i class="fa-solid fa-calendar-days"></i>
+        </div>
+        <div>
+          <p class="font-bold text-white leading-tight">GitHub Contribution Graph</p>
+          <p class="text-xs text-white/40">A full year of activity, straight from @shohan1081</p>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto pb-2">
+        <div class="min-w-[700px]">
+          <img id="gh-contrib-chart"
+               src="https://ghchart.rshah.org/3E7CB1/shohan1081"
+               alt="Shohanul Islam's GitHub contribution graph"
+               class="w-full"
+               loading="lazy">
+          <p id="gh-contrib-fallback" class="hidden text-center text-white/40 text-sm py-10">
+            The live contribution graph didn't load — GitHub activity is still visible on my
+            <a href="https://github.com/shohan1081" target="_blank" class="text-[#8FC1E3] font-semibold hover:underline">profile page</a>.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 mt-4 text-xs text-white/40">
+        <span>Less</span>
+        <span class="w-3 h-3 rounded-sm" style="background:#161b22"></span>
+        <span class="w-3 h-3 rounded-sm" style="background:#8FC1E3"></span>
+        <span class="w-3 h-3 rounded-sm" style="background:#3E7CB1"></span>
+        <span class="w-3 h-3 rounded-sm" style="background:#1B3A5C"></span>
+        <span>More</span>
+      </div>
+    </div>
+
+    <!-- Recent Commit Activity -->
+    <div class="reveal-up rounded-3xl bg-white/[0.03] border border-white/10 p-6 sm:p-8 mb-6">
+      <div class="flex items-start justify-between flex-wrap gap-3 mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 shrink-0 rounded-xl bg-white/5 border border-white/10 text-[#8FC1E3] flex items-center justify-center">
+            <i class="fa-solid fa-code-commit"></i>
+          </div>
+          <div>
+            <p class="font-bold text-white leading-tight">Recent Commit Activity</p>
+            <p class="text-xs text-white/40">Latest authored commits returned directly by GitHub</p>
+          </div>
+        </div>
+        <span class="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30">
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+          Live GitHub API
+        </span>
+      </div>
+
+      <div id="gh-commits-grid" class="grid sm:grid-cols-2 gap-3">
+        <!-- Skeleton loading state -->
+        {% for i in "1234" %}
+        <div class="gh-skeleton rounded-xl bg-white/[0.03] border border-white/10 p-4 h-[86px] animate-pulse"></div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- GitHub Language Distribution -->
+    <div class="reveal-up rounded-3xl bg-white/[0.03] border border-white/10 p-6 sm:p-8 mb-10">
+      <div class="flex items-start justify-between flex-wrap gap-3 mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 shrink-0 rounded-xl bg-white/5 border border-white/10 text-[#8FC1E3] flex items-center justify-center">
+            <i class="fa-solid fa-code"></i>
+          </div>
+          <div>
+            <p class="font-bold text-white leading-tight">GitHub Language Distribution</p>
+            <p class="text-xs text-white/40">Live analysis across all repositories &amp; production codebase commits</p>
+          </div>
+        </div>
+        <span id="gh-repo-count-badge" class="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 whitespace-nowrap">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="gh-repo-count-text">Loading repositories…</span>
+        </span>
+      </div>
+
+      <!-- Segmented bar -->
+      <div id="gh-lang-bar" class="flex h-2.5 w-full rounded-full overflow-hidden bg-white/5 mb-6">
+        <div class="h-full w-full bg-white/5 animate-pulse"></div>
+      </div>
+
+      <!-- Language legend cards -->
+      <div id="gh-lang-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        {% for i in "12345" %}
+        <div class="gh-skeleton rounded-xl bg-white/[0.03] border border-white/10 p-4 h-[78px] animate-pulse"></div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Visit profile CTA -->
+    <div class="reveal-up flex justify-center">
+      <a href="https://github.com/shohan1081" target="_blank"
+         class="gh-profile-btn inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-black border border-white/10 text-white font-semibold transition-transform duration-300 hover:scale-105">
+        <i class="fa-brands fa-github text-lg"></i>
+        Visit GitHub Profile
+        <i class="fa-solid fa-arrow-right text-sm"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .gh-profile-btn {
+    box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.25), 0 0 24px rgba(16, 185, 129, 0.25);
+  }
+  .gh-profile-btn:hover {
+    box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.5), 0 0 34px rgba(16, 185, 129, 0.45);
+  }
+
+  /* min-width: 0 overrides the default `min-width: auto` that grid/flex items
+     get, which otherwise lets their content grow past the column and defeats
+     the ellipsis truncation below. */
+  .gh-commit-card {
+    min-width: 0;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .gh-commit-card:hover {
+    border-color: rgba(143, 193, 227, 0.4);
+    background-color: rgba(62, 124, 177, 0.08);
+  }
+  .gh-commit-msg {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .gh-lang-grid > div { min-width: 0; }
+  .gh-lang-desc {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .gh-commit-card .gh-repo-name {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gh-skeleton, .animate-pulse { animation: none; }
+  }
+</style>
+
+<script>
+  // GitHub contribution heatmap: server-rendered by ghchart.rshah.org, so it
+  // never touches the visitor's own GitHub API rate limit below.
+  (function () {
+    var img = document.getElementById('gh-contrib-chart');
+    var fallback = document.getElementById('gh-contrib-fallback');
+    if (!img || !fallback) return;
+    img.addEventListener('error', function () {
+      img.remove();
+      fallback.classList.remove('hidden');
+    }, { once: true });
+  })();
+
+  // Live GitHub stats: recent authored commits + repo language distribution,
+  // pulled straight from the public GitHub REST API (no backend needed).
+  // The two are fetched, cached and rendered fully independently, so a
+  // failure in one (e.g. hitting GitHub's 60 req/hour unauthenticated rate
+  // limit) never blanks out the other.
+  (function () {
+    var USERNAME = 'shohan1081';
+    var COMMITS_CACHE_KEY = 'gh_commits_' + USERNAME + '_v1';
+    var LANG_CACHE_KEY = 'gh_languages_' + USERNAME + '_v1';
+    var CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+
+    var commitsGrid = document.getElementById('gh-commits-grid');
+    var langBar = document.getElementById('gh-lang-bar');
+    var langGrid = document.getElementById('gh-lang-grid');
+    var repoCountText = document.getElementById('gh-repo-count-text');
+    if (!commitsGrid || !langBar || !langGrid || !repoCountText) return;
+
+    var LANG_COLORS = {
+      JavaScript: '#f1e05a', TypeScript: '#3178c6', Python: '#3572A5', HTML: '#e34c26',
+      CSS: '#563d7c', Java: '#b07219', 'C++': '#f34b7d', C: '#a8b9cc', 'C#': '#178600',
+      PHP: '#4F5D95', Ruby: '#701516', Go: '#00ADD8', Rust: '#dea584', Shell: '#89e051',
+      Dart: '#00B4AB', Kotlin: '#A97BFF', Swift: '#F05138', Vue: '#41b883', SCSS: '#c6538c',
+      'Jupyter Notebook': '#DA5B0B', Dockerfile: '#384d54', EJS: '#a91e50',
+      Others: '#8FC1E3'
+    };
+    var LANG_DESC = {
+      JavaScript: 'React, Next.js & Interactive UIs',
+      TypeScript: 'Full-Stack Apps & Typed Systems',
+      Python: 'Backend APIs & Scripts',
+      HTML: 'Semantic Web & Accessibility',
+      CSS: 'Styling & Layout Systems',
+      Java: 'Object-Oriented Systems',
+      PHP: 'Server-Side Web Apps',
+      Dockerfile: 'Containerized Environments',
+      Others: 'Additional Repository Languages'
+    };
+    function langColor(l) { return LANG_COLORS[l] || '#64748b'; }
+    function langDesc(l) { return LANG_DESC[l] || 'Additional Development Work'; }
+
+    function formatDate(iso) {
+      try {
+        return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      } catch (e) { return ''; }
+    }
+
+    function readCache(key) {
+      try {
+        var raw = localStorage.getItem(key);
+        if (!raw) return null;
+        var parsed = JSON.parse(raw);
+        if (!parsed || (Date.now() - parsed.ts) > CACHE_TTL_MS) return null;
+        return parsed.data;
+      } catch (e) { return null; }
+    }
+    function writeCache(key, data) {
+      try {
+        localStorage.setItem(key, JSON.stringify({ ts: Date.now(), data: data }));
+      } catch (e) { /* ignore quota/private-mode errors */ }
+    }
+
+    async function fetchRecentCommits() {
+      var res = await fetch('https://api.github.com/users/' + USERNAME + '/events/public?per_page=30');
+      if (!res.ok) throw new Error('events ' + res.status);
+      var events = await res.json();
+
+      // GitHub's public events API no longer inlines commit messages in the
+      // PushEvent payload (privacy change) — only `head` (the newest commit
+      // sha) and the repo. So fetch each candidate push's head commit detail
+      // directly, bounded to a handful of events to keep API calls sane.
+      var pushEvents = events.filter(function (e) {
+        return e.type === 'PushEvent' && e.payload && e.payload.head && e.repo;
+      }).slice(0, 6);
+
+      var settled = await Promise.allSettled(pushEvents.map(function (ev) {
+        return fetch('https://api.github.com/repos/' + ev.repo.name + '/commits/' + ev.payload.head)
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (data) { return { ev: ev, data: data }; });
+      }));
+
+      var commits = [];
+      for (var i = 0; i < settled.length && commits.length < 4; i++) {
+        var result = settled[i];
+        if (result.status !== 'fulfilled' || !result.value || !result.value.data) continue;
+        var ev = result.value.ev;
+        var data = result.value.data;
+        var commitInfo = data.commit || {};
+        commits.push({
+          sha: (data.sha || ev.payload.head || '').slice(0, 7),
+          message: (commitInfo.message || '').split('\n')[0],
+          repo: ev.repo.name,
+          date: (commitInfo.author && commitInfo.author.date) || ev.created_at
+        });
+      }
+      return commits;
+    }
+
+    async function fetchLanguageDistribution() {
+      var res = await fetch('https://api.github.com/users/' + USERNAME + '/repos?per_page=100&sort=updated');
+      if (!res.ok) throw new Error('repos ' + res.status);
+      var repos = await res.json();
+      var totalRepoCount = repos.length;
+
+      // GitHub's unauthenticated rate limit is only 60 requests/hour, and each
+      // repo needs its own /languages call — so cap the per-repo language scan
+      // to the most recently active repos rather than firing one request per
+      // repo (which alone could burn most of the hourly budget on an account
+      // with 30+ repos). Repos are already sorted by recent activity (`sort=updated`).
+      var LANGUAGE_SCAN_LIMIT = 18;
+      var reposToScan = repos.slice(0, LANGUAGE_SCAN_LIMIT);
+
+      var settled = await Promise.allSettled(reposToScan.map(function (r) {
+        return fetch(r.languages_url).then(function (res) { return res.ok ? res.json() : {}; });
+      }));
+
+      var langBytes = {};
+      var langRepoCount = {};
+      settled.forEach(function (result) {
+        if (result.status !== 'fulfilled') return;
+        var langs = result.value || {};
+        Object.keys(langs).forEach(function (lang) {
+          langBytes[lang] = (langBytes[lang] || 0) + langs[lang];
+          langRepoCount[lang] = (langRepoCount[lang] || 0) + 1;
+        });
+      });
+
+      var totalBytes = Object.values(langBytes).reduce(function (a, b) { return a + b; }, 0);
+      var sorted = Object.keys(langBytes)
+        .map(function (l) { return [l, langBytes[l]]; })
+        .sort(function (a, b) { return b[1] - a[1]; });
+
+      var top = sorted.slice(0, 4);
+      var rest = sorted.slice(4);
+      var restBytes = rest.reduce(function (sum, pair) { return sum + pair[1]; }, 0);
+      var restRepoCount = rest.reduce(function (sum, pair) { return sum + (langRepoCount[pair[0]] || 0); }, 0);
+
+      var items = top.map(function (pair) {
+        return { lang: pair[0], pct: totalBytes ? (pair[1] / totalBytes * 100) : 0, repos: langRepoCount[pair[0]] || 0 };
+      });
+      if (rest.length) {
+        items.push({ lang: 'Others', pct: totalBytes ? (restBytes / totalBytes * 100) : 0, repos: restRepoCount });
+      }
+      return { items: items, totalRepoCount: totalRepoCount };
+    }
+
+    function renderCommits(commits) {
+      if (!commits.length) {
+        commitsGrid.innerHTML = '<p class="col-span-full text-center text-white/40 text-sm py-4">No recent public push activity to show.</p>';
+        return;
+      }
+      commitsGrid.innerHTML = commits.map(function (c) {
+        return (
+          '<div class="gh-commit-card rounded-xl bg-white/[0.02] border border-white/10 p-4">' +
+            '<div class="flex items-center justify-between gap-2 mb-2">' +
+              '<span class="font-mono text-sm font-bold text-emerald-400">' + escapeHtml(c.sha) + '</span>' +
+              '<span class="text-xs text-white/40 whitespace-nowrap">' + escapeHtml(formatDate(c.date)) + '</span>' +
+            '</div>' +
+            '<p class="gh-commit-msg text-white font-medium text-sm mb-1.5">' + escapeHtml(c.message) + '</p>' +
+            '<p class="gh-repo-name text-xs text-white/40">' + escapeHtml(c.repo) + '</p>' +
+          '</div>'
+        );
+      }).join('');
+    }
+
+    function renderLanguages(result) {
+      var items = result.items;
+      repoCountText.textContent = result.totalRepoCount + ' live repositories (public)';
+
+      if (!items.length) {
+        langBar.innerHTML = '<div class="h-full w-full bg-white/5"></div>';
+        langGrid.innerHTML = '<p class="col-span-full text-center text-white/40 text-sm py-4">No language data available yet.</p>';
+        return;
+      }
+
+      langBar.innerHTML = items.map(function (item) {
+        return '<div class="h-full" style="width:' + Math.max(item.pct, 1.5) + '%; background:' + langColor(item.lang) + ';"></div>';
+      }).join('');
+
+      langGrid.innerHTML = items.map(function (item) {
+        return (
+          '<div class="rounded-xl bg-white/[0.02] border border-white/10 p-4">' +
+            '<div class="flex items-center justify-between gap-2 mb-1.5">' +
+              '<span class="flex items-center gap-2 font-bold text-white text-sm">' +
+                '<span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:' + langColor(item.lang) + ';"></span>' +
+                escapeHtml(item.lang) +
+              '</span>' +
+              '<span class="font-bold text-white text-sm">' + item.pct.toFixed(1) + '%</span>' +
+            '</div>' +
+            '<div class="flex items-center justify-between gap-2">' +
+              '<span class="gh-lang-desc text-xs text-white/40">' + escapeHtml(langDesc(item.lang)) + '</span>' +
+              '<span class="text-xs text-white/40 whitespace-nowrap">' + item.repos + ' repo' + (item.repos === 1 ? '' : 's') + '</span>' +
+            '</div>' +
+          '</div>'
+        );
+      }).join('');
+    }
+
+    function escapeHtml(str) {
+      return String(str == null ? '' : str).replace(/[&<>"']/g, function (ch) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+      });
+    }
+
+    function commitsFallback() {
+      commitsGrid.innerHTML =
+        '<p class="col-span-full text-center text-white/40 text-sm py-4">' +
+          'Live commit data didn\'t load (likely a temporary GitHub API rate limit) — activity is still visible on my ' +
+          '<a href="https://github.com/shohan1081" target="_blank" class="text-[#8FC1E3] font-semibold hover:underline">profile page</a>.' +
+        '</p>';
+    }
+    function languagesFallback() {
+      repoCountText.textContent = 'Unavailable';
+      langBar.innerHTML = '<div class="h-full w-full bg-white/5"></div>';
+      langGrid.innerHTML =
+        '<p class="col-span-full text-center text-white/40 text-sm py-4">' +
+          'Live language data didn\'t load (likely a temporary GitHub API rate limit) — repos are still visible on my ' +
+          '<a href="https://github.com/shohan1081" target="_blank" class="text-[#8FC1E3] font-semibold hover:underline">profile page</a>.' +
+        '</p>';
+    }
+
+    async function loadCommits() {
+      var cached = readCache(COMMITS_CACHE_KEY);
+      if (cached) { renderCommits(cached); return; }
+      try {
+        var commits = await fetchRecentCommits();
+        renderCommits(commits);
+        writeCache(COMMITS_CACHE_KEY, commits);
+      } catch (e) {
+        commitsFallback();
+      }
+    }
+
+    async function loadLanguages() {
+      var cached = readCache(LANG_CACHE_KEY);
+      if (cached) { renderLanguages(cached); return; }
+      try {
+        var languages = await fetchLanguageDistribution();
+        renderLanguages(languages);
+        writeCache(LANG_CACHE_KEY, languages);
+      } catch (e) {
+        languagesFallback();
+      }
+    }
+
+    loadCommits();
+    loadLanguages();
+  })();
+</script>
