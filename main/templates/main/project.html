@@ -17,6 +17,60 @@
 
       <!-- Project Collage Grid -->
       <div class="reveal-stagger grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+        <!-- Project: NexsellConnect (Live SaaS Product) -->
+        <div
+          class="relative group overflow-hidden rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-105"
+        >
+          <div class="grid grid-cols-2 gap-2">
+            <!-- Big Image -->
+            <div class="col-span-2 h-64 bg-[#070a13]">
+              <img
+                src="{% static 'main/images/nexsellconnect-dashboard.webp' %}"
+                alt="NexsellConnect AI receptionist dashboard"
+                class="w-full h-64 object-contain"
+              />
+            </div>
+            <!-- Small Images -->
+            <div class="h-32 bg-white">
+              <img
+                src="{% static 'main/images/nexsellconnect-steps.png' %}"
+                alt="NexsellConnect onboarding steps"
+                class="w-full h-32 object-contain"
+              />
+            </div>
+            <div class="h-32 bg-[#070a13]">
+              <img
+                src="{% static 'main/images/nexsellconnect-testimonials.png' %}"
+                alt="NexsellConnect customer testimonials"
+                class="w-full h-32 object-contain"
+              />
+            </div>
+          </div>
+
+          <!-- Live badge -->
+          <div class="absolute top-3 left-3 z-10 flex items-center gap-1.5 bg-black/70 backdrop-blur-sm text-emerald-400 text-[11px] font-semibold px-2.5 py-1 rounded-full border border-emerald-400/30">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Live Product
+          </div>
+
+          <!-- Overlay -->
+          <div
+            class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >
+            <h3 class="text-amber-50 text-xl font-bold mb-2">
+              NexsellConnect
+            </h3>
+            <p class="text-amber-50 text-xs mb-4">Django REST Framework · PostgreSQL · OpenAI API · JWT · Docker · AWS EC2</p>
+            <p class="text-amber-50 text-xs mb-4">AI receptionist SaaS for local businesses — answers questions, qualifies leads, and books appointments 24/7, with a full analytics dashboard. Self-hosted and deployed on AWS EC2.</p>
+            <a
+              href="https://nexsellconnect.com/"
+              target="_blank"
+              class="text-amber-50 bg-black px-4 py-2 rounded-lg hover:bg-amber-500 hover:text-black transition-all"
+              >View Project</a
+            >
+          </div>
+        </div>
+
         <!-- Project 1: Daily Weather Application -->
         <div
           class="relative group overflow-hidden rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-105"
