@@ -108,6 +108,8 @@
             <ul class="space-y-3 text-sm">
               <li><a href="#home" class="text-neutral-400 hover:text-white transition-colors duration-200">Home</a></li>
               <li><a href="#about-me" class="text-neutral-400 hover:text-white transition-colors duration-200">About Me</a></li>
+              <li><a href="#technologies" class="text-neutral-400 hover:text-white transition-colors duration-200">Tech</a></li>
+              <li><a href="#contributions" class="text-neutral-400 hover:text-white transition-colors duration-200">GitHub</a></li>
               <li><a href="#services" class="text-neutral-400 hover:text-white transition-colors duration-200">Services</a></li>
               <li><a href="#work" class="text-neutral-400 hover:text-white transition-colors duration-200">Work</a></li>
               <li><a href="#contact" class="text-neutral-400 hover:text-white transition-colors duration-200">Contact</a></li>
@@ -154,12 +156,11 @@
       </div>
 
       <!-- ============ Giant wordmark banner (designmonks-style closing logo) ============ -->
-      <div class="relative w-full overflow-hidden select-none bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#1B3A5C] pt-8 pb-4 sm:pt-12 sm:pb-6">
+      <div id="power-rig" class="relative w-full overflow-hidden select-none bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#1B3A5C] pt-8 pb-4 sm:pt-12 sm:pb-6">
 
         <!-- huge ghost wordmark: clamp() keeps it proportionate on any screen width -->
-        <p class="text-center font-black leading-none tracking-tighter whitespace-nowrap
-                  bg-gradient-to-b from-white/30 via-white/10 to-white/0 bg-clip-text text-transparent"
-           style="font-size: clamp(4.5rem, 15vw, 13rem);">
+        <p class="wordmark-glow text-center font-black leading-none tracking-tighter whitespace-nowrap"
+           style="font-size: clamp(3.5rem, 13vw, 11rem);">
           Shohanul Islam
         </p>
 
@@ -167,6 +168,55 @@
         <div class="absolute inset-0 opacity-[0.12] mix-blend-overlay"
              style="background-image: repeating-linear-gradient(to bottom, rgba(255,255,255,0.6) 0px, rgba(255,255,255,0.6) 1px, transparent 1px, transparent 4px);"></div>
       </div>
+
+      <style>
+        /* Soft glowing outline around each character — a crisp steel-blue edge
+           with layered blur bleeding outward — plus a bright band of "current"
+           that continuously sweeps left-to-right through the letters. */
+        .wordmark-glow {
+          -webkit-text-stroke: 1.5px rgba(143, 193, 227, 0.9);
+          color: transparent;
+          -webkit-background-clip: text;
+          background-clip: text;
+          background-repeat: no-repeat;
+          /* Layer 1: the sweeping current band (animated). Layer 2: the static vertical ghost fade. */
+          background-image:
+            linear-gradient(90deg,
+              transparent 0%, transparent 42%,
+              rgba(143, 193, 227, 0.9) 48%,
+              rgba(225, 240, 255, 1) 50%,
+              rgba(143, 193, 227, 0.9) 52%,
+              transparent 58%, transparent 100%),
+            linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(255,255,255,0.1), rgba(255,255,255,0));
+          background-size: 300% 100%, 100% 100%;
+          background-position: 0% 0%, 0% 0%;
+          filter:
+            drop-shadow(0 0 6px rgba(143, 193, 227, 0.75))
+            drop-shadow(0 0 18px rgba(62, 124, 177, 0.55))
+            drop-shadow(0 0 36px rgba(27, 58, 92, 0.45));
+          animation:
+            wordmarkPulse 5s ease-in-out infinite,
+            wordmarkCurrent 3.5s linear infinite;
+        }
+        @keyframes wordmarkPulse {
+          0%, 100% { filter:
+            drop-shadow(0 0 6px rgba(143, 193, 227, 0.75))
+            drop-shadow(0 0 18px rgba(62, 124, 177, 0.55))
+            drop-shadow(0 0 36px rgba(27, 58, 92, 0.45)); }
+          50% { filter:
+            drop-shadow(0 0 9px rgba(143, 193, 227, 0.95))
+            drop-shadow(0 0 26px rgba(62, 124, 177, 0.7))
+            drop-shadow(0 0 46px rgba(27, 58, 92, 0.55)); }
+        }
+        @keyframes wordmarkCurrent {
+          0%   { background-position: 0% 0%, 0% 0%; }
+          100% { background-position: 100% 0%, 0% 0%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .wordmark-glow { animation: none; }
+        }
+      </style>
     </footer>
  </div>
 
